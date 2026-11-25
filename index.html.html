@@ -1,0 +1,2163 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Invitación Mis 18 Años • Andree Cristopher</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts: Playfair Display, Great Vibes e Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,500;0,700;1,500&display=swap" rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        serif: ['Playfair Display', 'serif'],
+                        script: ['Great Vibes', 'cursive'],
+                    },
+                    colors: {
+                        obsidian: {
+                            950: '#04070D',
+                            900: '#080E1A',
+                            800: '#0F182A',
+                            700: '#172540',
+                        },
+                        royal: {
+                            300: '#93C5FD',
+                            400: '#60A5FA',
+                            500: '#3B82F6',
+                            600: '#2563EB',
+                            700: '#1D4ED8',
+                        },
+                        cyanGlow: '#38BDF8',
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Estilos base y manejo seguro de viewport móvil */
+        html, body {
+            margin: 0;
+            padding: 0;
+            min-height: 100dvh;
+            overflow-x: hidden;
+            background-color: #050811;
+            background-image: 
+                radial-gradient(circle at 18% 20%, rgba(37, 99, 235, 0.24) 0%, transparent 45%),
+                radial-gradient(circle at 82% 80%, rgba(56, 189, 248, 0.18) 0%, transparent 50%),
+                linear-gradient(135deg, #04070E 0%, #0A1326 50%, #050914 100%);
+            color: #F1F5F9;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        /* Textura sutil de papel oscuro elegante */
+        .paper-texture {
+            background-image: radial-gradient(rgba(96, 165, 250, 0.08) 1px, transparent 0);
+            background-size: 20px 20px;
+        }
+
+        /* Contenedor con perspectiva 3D para el sobre */
+        .envelope-perspective {
+            perspective: 1400px;
+        }
+
+        .envelope-wrapper {
+            position: relative;
+            width: min(90vw, 450px);
+            aspect-ratio: 16 / 10.6;
+            transition: transform 0.7s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.5s ease;
+            transform-style: preserve-3d;
+        }
+
+        .envelope-wrapper:hover:not(.is-open) {
+            transform: translateY(-4px) scale(1.01);
+        }
+
+        /* Cuerpo trasero del sobre en negro azulado */
+        .envelope-back {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(145deg, #090F1E 0%, #050811 100%);
+            border-radius: 12px;
+            box-shadow: 
+                0 24px 50px -12px rgba(0, 0, 0, 0.75),
+                0 0 28px -6px rgba(37, 99, 235, 0.35),
+                inset 0 0 0 1px rgba(96, 165, 250, 0.28);
+            z-index: 1;
+        }
+
+        /* Tarjeta interior que asoma y se desliza hacia arriba */
+        .envelope-card-preview {
+            position: absolute;
+            left: 5%;
+            right: 5%;
+            bottom: 6%;
+            height: 86%;
+            background: linear-gradient(180deg, #0D172A 0%, #09101F 100%);
+            border-radius: 8px;
+            border: 1px solid rgba(56, 189, 248, 0.45);
+            box-shadow: 0 -2px 14px rgba(37, 99, 235, 0.25);
+            z-index: 2;
+            transition: transform 0.85s cubic-bezier(0.34, 1.36, 0.64, 1);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            padding-top: 1.1rem;
+        }
+
+        .envelope-wrapper.is-open .envelope-card-preview {
+            transform: translateY(-42%);
+        }
+
+        /* Bolsillo frontal del sobre (solapas laterales e inferior) */
+        .envelope-pocket {
+            position: absolute;
+            inset: 0;
+            z-index: 3;
+            border-radius: 12px;
+            overflow: hidden;
+            pointer-events: none;
+        }
+
+        .pocket-left {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, #0E1729 0%, #080E1B 100%);
+            clip-path: polygon(0 0, 54% 52%, 0 100%);
+            filter: drop-shadow(2px 0 6px rgba(0, 0, 0, 0.55));
+        }
+
+        .pocket-right {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(225deg, #0E1729 0%, #070C18 100%);
+            clip-path: polygon(100% 0, 46% 52%, 100% 100%);
+            filter: drop-shadow(-2px 0 6px rgba(0, 0, 0, 0.55));
+        }
+
+        .pocket-bottom {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(0deg, #060B15 0%, #111D35 92%);
+            clip-path: polygon(0 100%, 50% 45%, 100% 100%);
+            filter: drop-shadow(0 -4px 8px rgba(0, 0, 0, 0.6));
+        }
+
+        /* Etiqueta frontal del destinatario sobre el bolsillo */
+        .envelope-recipient-box {
+            position: absolute;
+            bottom: 10%;
+            left: 8%;
+            right: 8%;
+            z-index: 4;
+            text-align: center;
+            pointer-events: none;
+            transition: opacity 0.35s ease;
+        }
+
+        .envelope-wrapper.is-open .envelope-recipient-box {
+            opacity: 0.25;
+        }
+
+        /* Solapa superior triangular animada en 3D */
+        .envelope-top-flap {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 58%;
+            transform-origin: top center;
+            transition: transform 0.75s cubic-bezier(0.4, 0, 0.2, 1), z-index 0s linear 0.35s;
+            z-index: 5;
+            pointer-events: none;
+        }
+
+        .envelope-top-flap-shape {
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(180deg, #13203B 0%, #091122 100%);
+            clip-path: polygon(0 0, 100% 0, 50% 100%);
+            border-top-left-radius: 12px;
+            border-top-right-radius: 12px;
+            filter: drop-shadow(0 6px 10px rgba(0, 0, 0, 0.65));
+        }
+
+        .envelope-top-flap-border {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(180deg, rgba(56, 189, 248, 0.45), rgba(37, 99, 235, 0.95));
+            clip-path: polygon(0 0, 100% 0, 50% 100%, 50% 97.5%, 3% 0, 0 0);
+        }
+
+        .envelope-wrapper.is-open .envelope-top-flap {
+            transform: rotateX(180deg);
+            z-index: 1;
+        }
+
+        /* Sello de lacre azul metálico con el número 18 */
+        .wax-seal {
+            position: absolute;
+            top: 52%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: clamp(64px, 16vw, 78px);
+            height: clamp(64px, 16vw, 78px);
+            border-radius: 50%;
+            background: radial-gradient(circle at 32% 30%, #7DD3FC 0%, #2563EB 45%, #1E3A8A 88%, #0F172A 100%);
+            box-shadow:
+                0 8px 20px rgba(0, 0, 0, 0.65),
+                0 0 18px rgba(56, 189, 248, 0.45),
+                inset 0 2px 4px rgba(224, 242, 254, 0.8),
+                inset 0 -3px 6px rgba(15, 23, 42, 0.8);
+            z-index: 6;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.35s ease;
+            animation: sealPulse 2.6s infinite ease-in-out;
+        }
+
+        .wax-seal::before {
+            content: '';
+            position: absolute;
+            inset: 6px;
+            border-radius: 50%;
+            border: 1.5px solid rgba(186, 230, 253, 0.7);
+            box-shadow: inset 0 1px 3px rgba(15, 23, 42, 0.6);
+        }
+
+        .wax-seal:hover {
+            transform: translate(-50%, -50%) scale(1.08);
+        }
+
+        .wax-seal:active {
+            transform: translate(-50%, -50%) scale(0.95);
+        }
+
+        .envelope-wrapper.is-open .wax-seal {
+            opacity: 0;
+            transform: translate(-50%, -50%) scale(1.3);
+            pointer-events: none;
+            animation: none;
+        }
+
+        @keyframes sealPulse {
+            0%, 100% {
+                box-shadow: 0 8px 20px rgba(0, 0, 0, 0.65), 0 0 0 0 rgba(56, 189, 248, 0.55);
+            }
+            50% {
+                box-shadow: 0 10px 24px rgba(0, 0, 0, 0.75), 0 0 0 11px rgba(56, 189, 248, 0);
+            }
+        }
+
+        /* Vista expandida de la carta abierta */
+        .letter-modal-backdrop {
+            transition: opacity 0.45s ease, visibility 0.45s ease;
+        }
+
+        .letter-paper {
+            background: linear-gradient(180deg, #0A1120 0%, #060B15 100%);
+            box-shadow: 
+                0 25px 60px -15px rgba(0, 0, 0, 0.85),
+                0 0 35px -10px rgba(37, 99, 235, 0.4),
+                0 0 0 1px rgba(56, 189, 248, 0.4);
+            transform: translateY(28px) scale(0.94);
+            opacity: 0;
+            transition: transform 0.55s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.45s ease;
+        }
+
+        .letter-modal-backdrop.active .letter-paper {
+            transform: translateY(0) scale(1);
+            opacity: 1;
+        }
+
+        /* Scrollbar elegante oscuro y azul */
+        .custom-scroll::-webkit-scrollbar {
+            width: 5px;
+        }
+        .custom-scroll::-webkit-scrollbar-track {
+            background: rgba(15, 24, 42, 0.6);
+            border-radius: 10px;
+        }
+        .custom-scroll::-webkit-scrollbar-thumb {
+            background: rgba(59, 130, 246, 0.55);
+            border-radius: 10px;
+        }
+
+        /* Botón azul eléctrico metálico */
+        .btn-royal {
+            background: linear-gradient(135deg, #2563EB 0%, #1D4ED8 55%, #1E3A8A 100%);
+            box-shadow: 0 6px 18px -4px rgba(37, 99, 235, 0.55);
+            border: 1px solid rgba(96, 165, 250, 0.35);
+            transition: all 0.25s ease;
+        }
+        .btn-royal:hover {
+            background: linear-gradient(135deg, #3B82F6 0%, #2563EB 60%, #1D4ED8 100%);
+            transform: translateY(-1px);
+            box-shadow: 0 8px 22px -4px rgba(56, 189, 248, 0.65);
+        }
+        .btn-royal:active {
+            transform: translateY(0);
+        }
+
+        /* Destellos estrellados y luces cálidas inspirados en la estética festiva */
+        @keyframes twinkleLight {
+            0%, 100% { opacity: 0.45; transform: scale(0.92); }
+            50% { opacity: 1; transform: scale(1.12); }
+        }
+        .fairy-bulb {
+            animation: twinkleLight 2.4s infinite ease-in-out;
+        }
+        .fairy-bulb:nth-child(odd) {
+            animation-delay: 0.9s;
+        }
+        @keyframes floatBalloon {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-6px); }
+        }
+        .balloon-cluster {
+            animation: floatBalloon 5.5s infinite ease-in-out;
+        }
+    </style>
+</head>
+<body class="paper-texture flex flex-col justify-between min-h-[100dvh] relative select-none">
+
+    <!-- Guirnalda superior curva de luces cálidas -->
+    <div class="fixed top-0 inset-x-0 pointer-events-none z-0 overflow-hidden h-36 opacity-90">
+        <svg class="w-full h-full" viewBox="0 0 1440 140" preserveAspectRatio="none" fill="none">
+            <defs>
+                <radialGradient id="warmBulb" cx="50%" cy="50%" r="50%">
+                    <stop offset="0%" stop-color="#FEF9C3"/>
+                    <stop offset="55%" stop-color="#FDE047" stop-opacity="0.92"/>
+                    <stop offset="100%" stop-color="#FDE047" stop-opacity="0"/>
+                </radialGradient>
+            </defs>
+            <path d="M-20 12 Q 360 115 720 42 T 1460 18" stroke="rgba(254,240,138,0.45)" stroke-width="1.6" fill="none"/>
+            <path d="M-20 48 Q 420 12 820 98 T 1460 44" stroke="rgba(254,240,138,0.3)" stroke-width="1.2" fill="none"/>
+            <circle class="fairy-bulb" cx="140" cy="48" r="10" fill="url(#warmBulb)"/>
+            <circle class="fairy-bulb" cx="310" cy="76" r="11" fill="url(#warmBulb)"/>
+            <circle class="fairy-bulb" cx="510" cy="64" r="10" fill="url(#warmBulb)"/>
+            <circle class="fairy-bulb" cx="720" cy="43" r="11" fill="url(#warmBulb)"/>
+            <circle class="fairy-bulb" cx="930" cy="64" r="10" fill="url(#warmBulb)"/>
+            <circle class="fairy-bulb" cx="1130" cy="76" r="11" fill="url(#warmBulb)"/>
+            <circle class="fairy-bulb" cx="1300" cy="48" r="10" fill="url(#warmBulb)"/>
+        </svg>
+    </div>
+
+    <!-- Ramillete lateral izquierdo de globos completos (enmarca sin recortarse) -->
+    <div class="fixed top-6 left-0 pointer-events-none z-0 w-36 sm:w-56 md:w-72 h-[75vh] max-h-[620px] opacity-95 select-none">
+        <svg class="w-full h-full balloon-cluster pointer-events-none" viewBox="0 0 280 620" preserveAspectRatio="xMinYMin meet" fill="none">
+            <defs>
+                <radialGradient id="blueBalloonL" cx="32%" cy="28%" r="68%">
+                    <stop offset="0%" stop-color="#93C5FD"/>
+                    <stop offset="42%" stop-color="#2563EB"/>
+                    <stop offset="100%" stop-color="#091536"/>
+                </radialGradient>
+                <radialGradient id="silverBalloonL" cx="32%" cy="28%" r="68%">
+                    <stop offset="0%" stop-color="#FFFFFF"/>
+                    <stop offset="48%" stop-color="#CBD5E1"/>
+                    <stop offset="100%" stop-color="#475569"/>
+                </radialGradient>
+            </defs>
+            <!-- Hilos elegantes convergentes -->
+            <g stroke="rgba(148, 163, 184, 0.32)" stroke-width="1.3" fill="none">
+                <path d="M68 158 Q 75 290 45 450"/>
+                <path d="M168 138 Q 140 280 45 450"/>
+                <path d="M115 248 Q 95 340 45 450"/>
+                <path d="M48 310 Q 52 380 45 450"/>
+                <path d="M192 275 Q 135 360 45 450"/>
+            </g>
+            <!-- Globos completos -->
+            <ellipse cx="68" cy="84" rx="54" ry="66" fill="url(#blueBalloonL)"/>
+            <polygon points="68,150 62,159 74,159" fill="#1D4ED8"/>
+
+            <ellipse cx="168" cy="68" rx="50" ry="62" fill="url(#silverBalloonL)"/>
+            <polygon points="168,130 162,139 174,139" fill="#94A3B8"/>
+
+            <ellipse cx="115" cy="180" rx="52" ry="64" fill="url(#silverBalloonL)"/>
+            <polygon points="115,244 109,253 121,253" fill="#94A3B8"/>
+
+            <ellipse cx="48" cy="248" rx="44" ry="54" fill="url(#blueBalloonL)"/>
+            <polygon points="48,302 43,310 53,310" fill="#1D4ED8"/>
+
+            <ellipse cx="192" cy="216" rx="42" ry="52" fill="url(#blueBalloonL)"/>
+            <polygon points="192,268 187,276 197,276" fill="#1D4ED8"/>
+
+            <!-- Destellos -->
+            <circle cx="145" cy="315" r="2.5" fill="#FEF08A"/>
+            <circle cx="95" cy="365" r="2" fill="#BAE6FD"/>
+        </svg>
+    </div>
+
+    <!-- Ramillete lateral derecho de globos completos (simétrico) -->
+    <div class="fixed top-6 right-0 pointer-events-none z-0 w-36 sm:w-56 md:w-72 h-[75vh] max-h-[620px] opacity-95 select-none">
+        <svg class="w-full h-full balloon-cluster pointer-events-none" viewBox="0 0 280 620" preserveAspectRatio="xMaxYMin meet" fill="none">
+            <defs>
+                <radialGradient id="blueBalloonR" cx="32%" cy="28%" r="68%">
+                    <stop offset="0%" stop-color="#93C5FD"/>
+                    <stop offset="42%" stop-color="#2563EB"/>
+                    <stop offset="100%" stop-color="#091536"/>
+                </radialGradient>
+                <radialGradient id="silverBalloonR" cx="32%" cy="28%" r="68%">
+                    <stop offset="0%" stop-color="#FFFFFF"/>
+                    <stop offset="48%" stop-color="#CBD5E1"/>
+                    <stop offset="100%" stop-color="#475569"/>
+                </radialGradient>
+            </defs>
+            <!-- Hilos elegantes convergentes -->
+            <g stroke="rgba(148, 163, 184, 0.32)" stroke-width="1.3" fill="none">
+                <path d="M212 158 Q 205 290 235 450"/>
+                <path d="M112 138 Q 140 280 235 450"/>
+                <path d="M165 248 Q 185 340 235 450"/>
+                <path d="M232 310 Q 228 380 235 450"/>
+                <path d="M88 275 Q 145 360 235 450"/>
+            </g>
+            <!-- Globos completos -->
+            <ellipse cx="212" cy="84" rx="54" ry="66" fill="url(#blueBalloonR)"/>
+            <polygon points="212,150 206,159 218,159" fill="#1D4ED8"/>
+
+            <ellipse cx="112" cy="68" rx="50" ry="62" fill="url(#silverBalloonR)"/>
+            <polygon points="112,130 106,139 118,139" fill="#94A3B8"/>
+
+            <ellipse cx="165" cy="180" rx="52" ry="64" fill="url(#silverBalloonR)"/>
+            <polygon points="165,244 159,253 171,253" fill="#94A3B8"/>
+
+            <ellipse cx="232" cy="248" rx="44" ry="54" fill="url(#blueBalloonR)"/>
+            <polygon points="232,302 227,310 237,310" fill="#1D4ED8"/>
+
+            <ellipse cx="88" cy="216" rx="42" ry="52" fill="url(#blueBalloonR)"/>
+            <polygon points="88,268 83,276 93,276" fill="#1D4ED8"/>
+
+            <!-- Destellos -->
+            <circle cx="135" cy="315" r="2.5" fill="#FEF08A"/>
+            <circle cx="185" cy="365" r="2" fill="#BAE6FD"/>
+        </svg>
+    </div>
+
+    <!-- Canvas para lluvia sutil de confeti azul y plata -->
+    <canvas id="confetti-canvas" class="fixed inset-0 pointer-events-none z-50"></canvas>
+
+    <!-- Barra superior minimalista -->
+    <header class="w-full px-4 pt-3 pb-1 flex items-center justify-between relative z-[60]">
+        <div class="text-xs tracking-[0.22em] uppercase text-royal-400/80 font-medium hidden sm:block">
+            Edición Especial • XVIII
+        </div>
+        <div class="ml-auto flex items-center gap-2">
+            <button id="open-host-btn" type="button" 
+                class="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-obsidian-800/85 hover:bg-obsidian-700 text-slate-200 hover:text-cyanGlow text-xs font-medium border border-royal-500/40 shadow-sm backdrop-blur-sm transition cursor-pointer"
+                title="Ver lista de invitados confirmados">
+                <svg class="w-3.5 h-3.5 text-royal-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"/>
+                </svg>
+                <span>Anfitrión</span>
+            </button>
+            <button id="open-customizer-btn" type="button" 
+                class="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-obsidian-800/85 hover:bg-obsidian-700 text-slate-200 hover:text-cyanGlow text-xs font-medium border border-royal-500/40 shadow-sm backdrop-blur-sm transition cursor-pointer"
+                title="Solo anfitrión: Personalizar datos de la invitación">
+                <svg class="w-3.5 h-3.5 text-royal-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/>
+                </svg>
+                <span>Personalizar</span>
+            </button>
+        </div>
+    </header>
+
+    <!-- ESCENA 1: SOBRE CERRADO CENTRADO -->
+    <main id="envelope-stage" class="flex-1 flex flex-col items-center justify-center px-4 py-6 relative z-20">
+        
+        <!-- Título sutil superior -->
+        <div class="text-center mb-6 sm:mb-8 transition-opacity duration-500" id="envelope-header-text">
+            <p class="text-[11px] sm:text-xs uppercase tracking-[0.3em] text-royal-400 font-semibold mb-1.5">
+                Tienes una invitación especial
+            </p>
+            <div class="w-14 h-[1px] bg-gradient-to-r from-transparent via-royal-400 to-transparent mx-auto"></div>
+        </div>
+
+        <!-- Contenedor del Sobre 3D -->
+        <div class="envelope-perspective flex items-center justify-center my-2">
+            <div id="envelope" class="envelope-wrapper cursor-pointer" role="button" tabindex="0" aria-label="Abrir sobre de invitación">
+                
+                <!-- Parte trasera -->
+                <div class="envelope-back"></div>
+
+                <!-- Vista previa de la carta interior -->
+                <div class="envelope-card-preview">
+                    <span class="text-[10px] uppercase tracking-[0.25em] text-cyanGlow font-semibold">Mis 18 Años</span>
+                    <div class="w-8 h-[1px] bg-royal-500/50 my-1.5"></div>
+                    <p class="font-serif italic text-xs text-slate-300 px-4 text-center">Una noche inolvidable está por comenzar...</p>
+                </div>
+
+                <!-- Bolsillo frontal (izquierda, derecha, abajo) -->
+                <div class="envelope-pocket">
+                    <div class="pocket-left"></div>
+                    <div class="pocket-right"></div>
+                    <div class="pocket-bottom"></div>
+                </div>
+
+                <!-- Destinatario en el frente del sobre -->
+                <div class="envelope-recipient-box px-3">
+                    <p class="text-[10px] sm:text-xs uppercase tracking-[0.22em] text-royal-400 font-medium mb-0.5">
+                        Para:
+                    </p>
+                    <h1 id="envelope-guest-name" class="font-serif italic text-lg sm:text-2xl text-white font-semibold truncate drop-shadow-[0_2px_6px_rgba(0,0,0,0.85)]">
+                        Alguien muy especial
+                    </h1>
+                </div>
+
+                <!-- Solapa superior 3D -->
+                <div class="envelope-top-flap">
+                    <div class="envelope-top-flap-shape"></div>
+                    <div class="envelope-top-flap-border"></div>
+                </div>
+
+                <!-- Sello de lacre azul con "18" -->
+                <div id="wax-seal-btn" class="wax-seal" title="Toca el sello para abrir">
+                    <span class="font-serif font-bold text-2xl sm:text-[28px] text-white tracking-tight drop-shadow-[0_2px_4px_rgba(10,18,40,0.9)]">
+                        18
+                    </span>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- Indicación interactiva inferior -->
+        <div id="tap-hint" class="mt-7 sm:mt-9 text-center transition-opacity duration-300">
+            <button type="button" id="open-text-trigger" class="inline-flex items-center gap-2 text-xs sm:text-sm text-royal-300 hover:text-cyanGlow font-medium tracking-wide cursor-pointer">
+                <span class="w-1.5 h-1.5 rounded-full bg-cyanGlow animate-ping"></span>
+                <span>Toca el sello azul para abrir tu carta</span>
+            </button>
+        </div>
+
+    </main>
+
+    <!-- ESCENA 2: CARTA ABIERTA (MODAL RESPONSIVO SIN DESBORDAMIENTO) -->
+    <section id="letter-stage" class="letter-modal-backdrop fixed inset-0 z-40 hidden items-center justify-center p-3 sm:p-6 bg-black/75 backdrop-blur-xs opacity-0 pointer-events-none" aria-hidden="true">
+        
+        <article class="letter-paper relative w-full max-w-lg max-h-[90dvh] rounded-2xl overflow-hidden flex flex-col">
+            
+            <!-- Marco interior azul eléctrico decorativo -->
+            <div class="m-2.5 sm:m-4 border border-royal-500/45 rounded-xl flex-1 flex flex-col overflow-hidden relative bg-obsidian-900/80">
+                
+                <!-- Ornamentos de esquina SVG -->
+                <svg class="w-7 h-7 text-cyanGlow/70 absolute top-2 left-2 pointer-events-none" viewBox="0 0 32 32" fill="none">
+                    <path d="M2 28V8C2 4.68629 4.68629 2 8 2H28" stroke="currentColor" stroke-width="1.5"/>
+                    <circle cx="8" cy="8" r="2" fill="currentColor"/>
+                </svg>
+                <svg class="w-7 h-7 text-cyanGlow/70 absolute top-2 right-2 pointer-events-none rotate-90" viewBox="0 0 32 32" fill="none">
+                    <path d="M2 28V8C2 4.68629 4.68629 2 8 2H28" stroke="currentColor" stroke-width="1.5"/>
+                    <circle cx="8" cy="8" r="2" fill="currentColor"/>
+                </svg>
+                <svg class="w-7 h-7 text-cyanGlow/70 absolute bottom-2 left-2 pointer-events-none -rotate-90" viewBox="0 0 32 32" fill="none">
+                    <path d="M2 28V8C2 4.68629 4.68629 2 8 2H28" stroke="currentColor" stroke-width="1.5"/>
+                    <circle cx="8" cy="8" r="2" fill="currentColor"/>
+                </svg>
+                <svg class="w-7 h-7 text-cyanGlow/70 absolute bottom-2 right-2 pointer-events-none rotate-180" viewBox="0 0 32 32" fill="none">
+                    <path d="M2 28V8C2 4.68629 4.68629 2 8 2H28" stroke="currentColor" stroke-width="1.5"/>
+                    <circle cx="8" cy="8" r="2" fill="currentColor"/>
+                </svg>
+
+                <!-- Contenido desplazable seguro de la carta -->
+                <div class="overflow-y-auto custom-scroll px-5 py-7 sm:px-9 sm:py-9 text-center space-y-5 relative">
+                    
+                    <!-- Mini guirnalda luminosa superior dentro de la carta -->
+                    <svg class="w-full h-10 -mt-3 mb-1 opacity-85 pointer-events-none" viewBox="0 0 400 42" fill="none">
+                        <path d="M0 8 Q 100 34 200 14 T 400 10" stroke="rgba(253,224,71,0.45)" stroke-width="1.2"/>
+                        <circle class="fairy-bulb" cx="45" cy="18" r="5" fill="#FEF08A"/>
+                        <circle class="fairy-bulb" cx="115" cy="22" r="5.5" fill="#FDE047"/>
+                        <circle class="fairy-bulb" cx="200" cy="14" r="5" fill="#FEF08A"/>
+                        <circle class="fairy-bulb" cx="285" cy="20" r="5.5" fill="#FDE047"/>
+                        <circle class="fairy-bulb" cx="355" cy="14" r="5" fill="#FEF08A"/>
+                    </svg>
+
+                    <!-- Emblema superior 18 -->
+                    <div class="inline-flex items-center justify-center w-12 h-12 rounded-full bg-obsidian-800 border border-royal-400 text-cyanGlow font-serif font-bold text-lg shadow-[0_0_15px_rgba(56,189,248,0.25)]">
+                        18
+                    </div>
+
+                    <!-- Encabezado principal -->
+                    <div class="space-y-1">
+                        <p class="text-[11px] uppercase tracking-[0.28em] text-royal-400 font-semibold">
+                            Celebrando una nueva etapa
+                        </p>
+                        <h2 class="font-serif text-3xl sm:text-4xl font-bold text-white tracking-tight">
+                            ¡Mis 18 Años!
+                        </h2>
+                        <p id="letter-host-name" class="font-script text-3xl sm:text-4xl text-cyanGlow pt-1 drop-shadow-[0_2px_8px_rgba(56,189,248,0.3)]">
+                            Andree Cristopher Quispe Ccosi
+                        </p>
+                    </div>
+
+                    <!-- Divisor ornamental -->
+                    <div class="flex items-center justify-center gap-3">
+                        <span class="h-[1px] w-12 bg-gradient-to-r from-transparent to-royal-400"></span>
+                        <span class="text-amber-200 text-xs">✦</span>
+                        <span class="h-[1px] w-12 bg-gradient-to-l from-transparent to-royal-400"></span>
+                    </div>
+
+                    <!-- Saludo personalizado y mensaje breve estilo tarjeta festiva -->
+                    <div class="space-y-3 text-slate-200">
+                        <div>
+                            <p class="font-serif italic text-lg sm:text-xl text-royal-300">
+                                Hola <span id="letter-guest-name" class="font-semibold text-white underline decoration-royal-400 underline-offset-4">Alguien muy especial</span>,
+                            </p>
+                            <p class="text-[11px] italic text-slate-400 mt-1">
+                                (Perdón si me confundí en escribir tu nombre 😅)
+                            </p>
+                        </div>
+                        <p id="letter-message" class="font-serif text-xs sm:text-sm leading-relaxed text-amber-100/95 max-w-md mx-auto drop-shadow-[0_1px_6px_rgba(253,224,71,0.18)] whitespace-pre-line">
+                            "Doy gracias a Dios por concederme la bendición de un año más de vida lleno de salud y esperanza".
+La vida nos regala momentos especiales, y celebrarlos junto a quienes más aprecio los vuelve inolvidables; por eso, con mucha alegría quiero invitarte a un compartir este sábado 28 para festejar mis 18 años y pasar un momento agradable.
+                        </p>
+                    </div>
+
+                    <!-- Emblema decorativo: Corona real con destellos en plata y azul -->
+                    <div class="flex justify-center py-0.5">
+                        <svg class="w-16 h-12 drop-shadow-[0_0_12px_rgba(56,189,248,0.35)]" viewBox="0 0 96 72" fill="none">
+                            <!-- Destellos alrededor de la corona -->
+                            <path d="M48 4L49.5 9L54.5 10.5L49.5 12L48 17L46.5 12L41.5 10.5L46.5 9L48 4Z" fill="#FEF08A"/>
+                            <circle cx="22" cy="18" r="1.8" fill="#93C5FD"/>
+                            <circle cx="74" cy="18" r="1.8" fill="#93C5FD"/>
+                            <!-- Estructura de la corona -->
+                            <path d="M20 50L15 26L33 38L48 20L63 38L81 26L76 50H20Z" fill="rgba(59,130,246,0.22)" stroke="#93C5FD" stroke-width="1.8" stroke-linejoin="round"/>
+                            <!-- Base de la corona -->
+                            <rect x="20" y="53" width="56" height="5" rx="2.5" fill="#E2E8F0"/>
+                            <!-- Joyas superiores y centrales -->
+                            <circle cx="15" cy="24" r="2.5" fill="#FEF08A"/>
+                            <circle cx="48" cy="18" r="3" fill="#FEF08A"/>
+                            <circle cx="81" cy="24" r="2.5" fill="#FEF08A"/>
+                            <circle cx="48" cy="40" r="3" fill="#38BDF8"/>
+                            <circle cx="33" cy="43" r="2" fill="#E2E8F0"/>
+                            <circle cx="63" cy="43" r="2" fill="#E2E8F0"/>
+                        </svg>
+                    </div>
+
+                    <!-- Tarjeta de detalles del evento -->
+                    <div class="bg-obsidian-950/85 border border-royal-500/35 rounded-xl p-4 sm:p-5 grid grid-cols-1 sm:grid-cols-2 gap-4 text-left shadow-inner">
+                        
+                        <!-- Fecha -->
+                        <div class="flex items-start gap-3">
+                            <div class="w-8 h-8 rounded-lg bg-obsidian-800 border border-royal-500/40 flex items-center justify-center shrink-0 text-cyanGlow mt-0.5">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+                                </svg>
+                            </div>
+                            <div>
+                                <p class="text-[10px] uppercase tracking-wider text-royal-400 font-semibold">Fecha</p>
+                                <p id="event-date" class="text-xs sm:text-sm font-semibold text-white">Sábado, 28 de Noviembre</p>
+                            </div>
+                        </div>
+
+                        <!-- Hora -->
+                        <div class="flex items-start gap-3">
+                            <div class="w-8 h-8 rounded-lg bg-obsidian-800 border border-royal-500/40 flex items-center justify-center shrink-0 text-cyanGlow mt-0.5">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                                </svg>
+                            </div>
+                            <div>
+                                <p class="text-[10px] uppercase tracking-wider text-royal-400 font-semibold">Hora</p>
+                                <p id="event-time" class="text-xs sm:text-sm font-semibold text-white">6:00 PM</p>
+                            </div>
+                        </div>
+
+                        <!-- Lugar -->
+                        <div class="flex items-start gap-3">
+                            <div class="w-8 h-8 rounded-lg bg-obsidian-800 border border-royal-500/40 flex items-center justify-center shrink-0 text-cyanGlow mt-0.5">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
+                                </svg>
+                            </div>
+                            <div>
+                                <p class="text-[10px] uppercase tracking-wider text-royal-400 font-semibold">Lugar</p>
+                                <p id="event-venue" class="text-xs sm:text-sm font-semibold text-white">Ubicación de mi domicilio</p>
+                                <a id="event-map-link" href="https://www.google.com/maps/@-16.4769391,-71.5052337,2409a,75y,137.73h,94.34t/data=!3m7!1e1!3m5!1seX1hNo9GOleJfJKpawIZ6g!2e0!6shttps:%2F%2Fstreetviewpixels-pa.clients6.google.com%2Fv1%2Fthumbnail%3Fcb_client%3Dmaps_sv.tactile%26w%3D900%26h%3D600%26pitch%3D-4.336992623953293%26panoid%3DeX1hNo9GOleJfJKpawIZ6g%26yaw%3D137.73342875912016!7i16384!8i8192?entry=ttu&g_ep=EgoyMDI2MTExOC4xIKXMDSoASAFQAw%3D%3D" target="_blank" rel="noopener noreferrer" 
+                                   class="inline-flex items-center gap-1 text-[11px] text-cyanGlow hover:text-royal-300 font-medium underline mt-0.5">
+                                    <span>Ver ubicación en Maps</span>
+                                    <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+                                </a>
+                            </div>
+                        </div>
+
+                        <!-- Código de Vestimenta -->
+                        <div class="flex items-start gap-3">
+                            <div class="w-8 h-8 rounded-lg bg-obsidian-800 border border-royal-500/40 flex items-center justify-center shrink-0 text-cyanGlow mt-0.5">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"/>
+                                </svg>
+                            </div>
+                            <div>
+                                <p class="text-[10px] uppercase tracking-wider text-royal-400 font-semibold">Vestimenta</p>
+                                <p id="event-dresscode" class="text-xs sm:text-sm font-semibold text-white">Libre</p>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <!-- Botones de acción -->
+                    <div class="pt-2 flex flex-col sm:flex-row items-center justify-center gap-3">
+                        <button id="open-rsvp-btn" type="button" 
+                            class="btn-royal w-full sm:w-auto px-6 py-3 rounded-xl text-white text-xs sm:text-sm font-semibold tracking-wide cursor-pointer flex items-center justify-center gap-2">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                            </svg>
+                            <span id="open-rsvp-btn-label">Confirmar Asistencia</span>
+                        </button>
+
+                        <button id="close-letter-btn" type="button" 
+                            class="w-full sm:w-auto px-5 py-3 rounded-xl bg-obsidian-800 hover:bg-obsidian-700 text-slate-200 text-xs sm:text-sm font-medium border border-royal-500/35 transition cursor-pointer">
+                            Guardar en el sobre
+                        </button>
+                    </div>
+                    <p id="already-confirmed-hint" class="hidden text-[11px] text-emerald-400 font-medium">
+                        Ya registraste tu respuesta. Puedes abrir esta carta las veces que quieras.
+                    </p>
+
+                </div>
+            </div>
+        </article>
+    </section>
+
+    <!-- MODAL DE CONFIRMACIÓN DE ASISTENCIA (RSVP) -->
+    <div id="rsvp-modal" class="fixed inset-0 z-40 hidden items-center justify-center p-4 bg-black/75 backdrop-blur-xs">
+        <div class="bg-obsidian-900 border border-royal-500/50 rounded-2xl w-full max-w-md p-6 shadow-2xl relative text-slate-100">
+            <button id="close-rsvp-btn" type="button" class="absolute top-4 right-4 text-slate-400 hover:text-white p-1 cursor-pointer" aria-label="Cerrar ventana">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+            </button>
+
+            <div id="rsvp-form-container">
+                <p class="text-[11px] uppercase tracking-[0.22em] text-cyanGlow font-semibold">RSVP</p>
+                <h3 class="font-serif text-2xl font-bold text-white mt-0.5">Confirmar Asistencia</h3>
+                <p class="text-xs text-slate-400 mt-1 mb-4">Tu respuesta quedará registrada en la lista de invitados.</p>
+
+                <form id="rsvp-form" class="space-y-3.5">
+                    <div>
+                        <label class="block text-xs font-medium text-slate-300 mb-1">Tu nombre completo</label>
+                        <input type="text" id="rsvp-name" required placeholder="Ej. Camila Torres"
+                            class="w-full px-3.5 py-2.5 rounded-xl bg-obsidian-950 border border-royal-500/40 text-white placeholder-slate-500 text-sm focus:outline-none focus:border-cyanGlow">
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-medium text-slate-300 mb-1">¿Asistirás?</label>
+                        <select id="rsvp-status" class="w-full px-3 py-2.5 rounded-xl bg-obsidian-950 border border-royal-500/40 text-white text-sm focus:outline-none focus:border-cyanGlow">
+                            <option value="confirmed">Sí, ¡ahí estaré!</option>
+                            <option value="declined">No podré asistir</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-medium text-slate-300 mb-1">Mensaje que quieras enviar aparte (opcional)</label>
+                        <input type="text" id="rsvp-note" placeholder="Escribe un mensaje..."
+                            class="w-full px-3.5 py-2.5 rounded-xl bg-obsidian-950 border border-royal-500/40 text-white placeholder-slate-500 text-sm focus:outline-none focus:border-cyanGlow">
+                    </div>
+
+                    <div class="pt-2 flex flex-col gap-2">
+                        <button type="submit" id="rsvp-submit-btn" class="btn-royal w-full py-3 rounded-xl text-white text-sm font-semibold cursor-pointer">
+                            Guardar Confirmación
+                        </button>
+                    </div>
+                </form>
+            </div>
+
+            <!-- Estado confirmado -->
+            <div id="rsvp-success-container" class="hidden text-center py-4 space-y-3">
+                <div class="w-14 h-14 rounded-full bg-royal-500/20 border border-cyanGlow text-cyanGlow flex items-center justify-center mx-auto">
+                    <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" d="M5 13l4 4L19 7"/></svg>
+                </div>
+                <h4 class="font-serif text-2xl font-bold text-white">¡Confirmación Guardada!</h4>
+                <p id="rsvp-summary-text" class="text-xs sm:text-sm text-slate-300"></p>
+                
+                <div class="pt-2 space-y-2">
+                    <a id="whatsapp-share-btn" href="#" target="_blank" rel="noopener noreferrer"
+                       class="w-full py-2.5 px-4 rounded-xl bg-[#25D366] hover:bg-[#20bd5a] text-white text-xs sm:text-sm font-semibold flex items-center justify-center gap-2 shadow-sm transition">
+                        <span>Avisar también por WhatsApp</span>
+                    </a>
+                    <button type="button" id="rsvp-done-btn" class="w-full py-2 text-xs text-cyanGlow font-medium hover:underline cursor-pointer">
+                        Volver a la invitación
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL PANEL DE ANFITRIÓN (LISTA EN TIEMPO REAL) -->
+    <div id="host-modal" class="fixed inset-0 z-40 hidden items-center justify-center p-3 sm:p-4 bg-black/75 backdrop-blur-xs">
+        <div class="bg-obsidian-900 border border-royal-500/50 rounded-2xl w-full max-w-2xl max-h-[90dvh] flex flex-col shadow-2xl relative overflow-hidden text-slate-100">
+            
+            <div class="px-5 py-4 border-b border-royal-500/30 flex items-center justify-between bg-obsidian-950/80">
+                <div>
+                    <p class="text-[10px] uppercase tracking-[0.22em] text-cyanGlow font-semibold">Panel Privado</p>
+                    <h3 class="font-serif text-xl font-bold text-white">Lista de Invitados</h3>
+                </div>
+                <button id="close-host-btn" type="button" class="text-slate-400 hover:text-white p-1.5 rounded-lg cursor-pointer" aria-label="Cerrar panel">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+                </button>
+            </div>
+
+            <!-- Pantalla de PIN -->
+            <div id="host-pin-screen" class="p-6 sm:p-8 text-center space-y-4">
+                <div class="w-12 h-12 rounded-full bg-royal-500/20 border border-royal-400 text-cyanGlow flex items-center justify-center mx-auto">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
+                </div>
+                <div>
+                    <h4 class="font-serif text-lg font-bold text-white">Acceso para el Anfitrión</h4>
+                    <p class="text-xs text-slate-400 mt-1">Ingresa tu PIN para ver quiénes han confirmado asistencia.</p>
+                </div>
+                <form id="host-pin-form" class="max-w-xs mx-auto space-y-3">
+                    <input type="password" id="host-pin-input" inputmode="numeric" maxlength="8" placeholder="••••" required
+                        class="w-full text-center tracking-[0.4em] text-lg font-bold px-4 py-2.5 rounded-xl bg-obsidian-950 border border-royal-500/45 text-white focus:outline-none focus:border-cyanGlow">
+                    <p id="host-pin-error" class="text-xs text-rose-400 hidden">PIN incorrecto. Intenta nuevamente.</p>
+                    <button type="submit" class="btn-royal w-full py-2.5 rounded-xl text-white text-xs sm:text-sm font-semibold cursor-pointer">
+                        Desbloquear Lista
+                    </button>
+                </form>
+            </div>
+
+            <!-- Contenido del Dashboard del Anfitrión -->
+            <div id="host-dashboard" class="hidden flex-1 flex-col overflow-hidden">
+                <!-- Barra de estado de sincronización en tiempo real y botón Actualizar -->
+                <div class="px-4 py-2 bg-obsidian-950 border-b border-royal-500/25 flex items-center justify-between gap-2 shrink-0">
+                    <div class="flex items-center gap-2">
+                        <span id="sync-status-dot" class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+                        <span id="sync-status-text" class="text-[11px] text-slate-300 font-medium">En vivo • Actualizando automáticamente</span>
+                    </div>
+                    <button type="button" id="refresh-rsvps-btn" class="px-2.5 py-1 rounded-lg bg-obsidian-800 hover:bg-obsidian-700 border border-royal-500/40 text-cyanGlow text-[11px] font-semibold flex items-center gap-1 transition cursor-pointer" title="Forzar actualización ahora">
+                        <svg id="refresh-rsvps-icon" class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
+                        <span>Actualizar</span>
+                    </button>
+                </div>
+
+                <!-- Contadores globales -->
+                <div class="grid grid-cols-3 gap-2.5 p-3.5 sm:p-4 bg-obsidian-950/60 border-b border-royal-500/25 shrink-0">
+                    <div class="bg-obsidian-800/90 rounded-xl p-2.5 sm:p-3 text-center border border-emerald-500/35">
+                        <p id="stat-confirmed" class="text-xl sm:text-2xl font-bold text-emerald-400">0</p>
+                        <p class="text-[10px] sm:text-xs text-slate-300 font-medium">Confirmados</p>
+                    </div>
+                    <div class="bg-obsidian-800/90 rounded-xl p-2.5 sm:p-3 text-center border border-royal-500/40">
+                        <p id="stat-total-people" class="text-xl sm:text-2xl font-bold text-cyanGlow">0</p>
+                        <p class="text-[10px] sm:text-xs text-slate-300 font-medium">Total Asistentes</p>
+                    </div>
+                    <div class="bg-obsidian-800/90 rounded-xl p-2.5 sm:p-3 text-center border border-rose-500/35">
+                        <p id="stat-declined" class="text-xl sm:text-2xl font-bold text-rose-400">0</p>
+                        <p class="text-[10px] sm:text-xs text-slate-300 font-medium">No asisten</p>
+                    </div>
+                </div>
+
+                <!-- Pestañas del Anfitrión: Enviar Invitaciones, Confirmaciones y Mensajes -->
+                <div class="grid grid-cols-3 bg-obsidian-950 border-b border-royal-500/30 p-1.5 gap-1.5 shrink-0">
+                    <button type="button" id="tab-links-btn" class="py-2 px-2 rounded-lg text-xs font-semibold bg-royal-600 text-white shadow-xs transition cursor-pointer flex items-center justify-center gap-1">
+                        <span>Links</span>
+                        <span id="invited-count-badge" class="px-1.5 py-0.5 text-[10px] rounded-full bg-black/30">31</span>
+                    </button>
+                    <button type="button" id="tab-rsvps-btn" class="py-2 px-2 rounded-lg text-xs font-semibold text-slate-300 hover:bg-obsidian-800 transition cursor-pointer flex items-center justify-center gap-1">
+                        <span>Confirmados</span>
+                        <span id="rsvp-count-badge" class="px-1.5 py-0.5 text-[10px] rounded-full bg-obsidian-800 text-cyanGlow">0</span>
+                    </button>
+                    <button type="button" id="tab-messages-btn" class="py-2 px-2 rounded-lg text-xs font-semibold text-slate-300 hover:bg-obsidian-800 transition cursor-pointer flex items-center justify-center gap-1">
+                        <span>Mensajes</span>
+                        <span id="messages-count-badge" class="px-1.5 py-0.5 text-[10px] rounded-full bg-obsidian-800 text-cyanGlow">0</span>
+                    </button>
+                </div>
+
+                <!-- VISTA 1: LISTA DE INVITADOS Y LINKS PERSONALIZADOS -->
+                <div id="host-links-view" class="flex-1 flex flex-col overflow-hidden">
+                    <!-- Buscador y agregar nuevo invitado -->
+                    <div class="p-3 bg-obsidian-900 border-b border-royal-500/20 space-y-2">
+                        <div id="preview-env-warning" class="hidden p-2.5 rounded-lg bg-royal-500/15 border border-royal-400/40 text-slate-200 text-[11px] leading-snug space-y-1.5">
+                            <p><strong class="text-cyanGlow">Enlace base para GitHub Pages:</strong> Si estás dentro del editor, pega abajo tu link de GitHub Pages (ej. <span class="text-royal-300">https://tuusuario.github.io/invitacion/</span>) para generar los links reales al instante:</p>
+                            <input type="url" id="custom-base-url-input" placeholder="https://tuusuario.github.io/tu-repo/"
+                                class="w-full px-2.5 py-1.5 rounded-md bg-obsidian-950 border border-royal-500/45 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-cyanGlow">
+                        </div>
+                        <div class="flex gap-2">
+                            <input type="text" id="search-guest-input" placeholder="Buscar invitado en tu lista..."
+                                class="flex-1 px-3 py-1.5 rounded-lg bg-obsidian-950 border border-royal-500/35 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-cyanGlow">
+                            <button type="button" id="copy-all-links-btn" class="px-3 py-1.5 rounded-lg bg-royal-500/20 hover:bg-royal-500/30 text-cyanGlow text-xs font-semibold whitespace-nowrap transition cursor-pointer">
+                                <span id="copy-all-links-label">Copiar todos</span>
+                            </button>
+                        </div>
+                        <form id="add-guest-form" class="flex gap-2">
+                            <input type="text" id="new-guest-name-input" placeholder="Agregar otro invitado rápido..."
+                                class="flex-1 px-3 py-1.5 rounded-lg bg-obsidian-950 border border-royal-500/35 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-cyanGlow">
+                            <button type="submit" class="px-3 py-1.5 rounded-lg bg-obsidian-800 hover:bg-obsidian-700 border border-royal-500/40 text-white text-xs font-semibold cursor-pointer">
+                                + Agregar
+                            </button>
+                        </form>
+                    </div>
+
+                    <!-- Lista de tarjetas con botón Copiar Link y Enviar WhatsApp -->
+                    <div id="guest-links-container" class="flex-1 overflow-y-auto custom-scroll p-3.5 space-y-2"></div>
+                </div>
+
+                <!-- VISTA 2: RESPUESTAS Y CONFIRMACIONES EN VIVO -->
+                <div id="host-rsvps-view" class="hidden flex-1 flex-col overflow-hidden">
+                    <div class="px-4 py-2.5 flex flex-wrap items-center justify-between gap-2 bg-obsidian-900 border-b border-royal-500/20">
+                        <span class="text-xs text-slate-400 font-medium">Respuestas registradas</span>
+                        <div class="flex items-center gap-2">
+                            <button type="button" id="toggle-manual-rsvp-btn" class="px-2.5 py-1.5 rounded-lg bg-emerald-500/20 hover:bg-emerald-500/30 text-emerald-300 text-xs font-semibold transition cursor-pointer">
+                                + Registrar manual
+                            </button>
+                            <button type="button" id="copy-guestlist-btn" class="px-3 py-1.5 rounded-lg bg-royal-500/20 hover:bg-royal-500/30 text-cyanGlow text-xs font-semibold flex items-center gap-1.5 transition cursor-pointer">
+                                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3"/></svg>
+                                <span id="copy-list-label">Copiar lista</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Formulario rápido para anotar confirmaciones que te lleguen por WhatsApp desde GitHub Pages -->
+                    <form id="manual-rsvp-form" class="hidden p-3 bg-obsidian-950 border-b border-royal-500/30 flex flex-wrap sm:flex-nowrap gap-2">
+                        <input type="text" id="manual-rsvp-name" required placeholder="Nombre del invitado..."
+                            class="flex-1 px-3 py-1.5 rounded-lg bg-obsidian-900 border border-royal-500/40 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-cyanGlow">
+                        <select id="manual-rsvp-status" class="px-2.5 py-1.5 rounded-lg bg-obsidian-900 border border-royal-500/40 text-xs text-white focus:outline-none focus:border-cyanGlow">
+                            <option value="confirmed">Asiste</option>
+                            <option value="declined">No asiste</option>
+                        </select>
+                        <button type="submit" class="px-3 py-1.5 rounded-lg bg-royal-600 hover:bg-royal-500 text-white text-xs font-semibold cursor-pointer">
+                            Guardar
+                        </button>
+                    </form>
+
+                    <div id="rsvp-list-container" class="flex-1 overflow-y-auto custom-scroll p-4 space-y-2.5">
+                        <p class="text-center text-xs text-slate-500 py-8">Aún no hay respuestas registradas.</p>
+                    </div>
+                </div>
+
+                <!-- VISTA 3: BUZÓN DE MENSAJES DE LOS INVITADOS -->
+                <div id="host-messages-view" class="hidden flex-1 flex-col overflow-hidden">
+                    <div class="px-4 py-2.5 flex items-center justify-between bg-obsidian-900 border-b border-royal-500/20">
+                        <span class="text-xs text-slate-400 font-medium">Mensajes enviados por tus invitados</span>
+                    </div>
+                    <div id="messages-list-container" class="flex-1 overflow-y-auto custom-scroll p-4 space-y-2.5">
+                        <p class="text-center text-xs text-slate-500 py-8">Aún no te han dejado mensajes adicionales.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL DE PERSONALIZACIÓN PARA EL ANFITRIÓN -->
+    <div id="customizer-modal" class="fixed inset-0 z-40 hidden items-center justify-center p-4 bg-black/75 backdrop-blur-xs">
+        <div class="bg-obsidian-900 border border-royal-500/50 rounded-2xl w-full max-w-md max-h-[90dvh] overflow-y-auto custom-scroll p-6 shadow-2xl relative text-slate-100">
+            <button id="close-customizer-btn" type="button" class="absolute top-4 right-4 text-slate-400 hover:text-white p-1 cursor-pointer" aria-label="Cerrar panel">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+            </button>
+
+            <p class="text-[11px] uppercase tracking-[0.22em] text-cyanGlow font-semibold">Modo Anfitrión</p>
+            <h3 class="font-serif text-xl font-bold text-white mt-0.5">Personalizar Invitación</h3>
+            <p class="text-xs text-slate-400 mt-1 mb-4">Edita el nombre del invitado para generar su enlace personalizado o actualiza los detalles.</p>
+
+            <div class="space-y-3">
+                <div>
+                    <label class="block text-xs font-medium text-slate-300 mb-1">Nombre del invitado para el sobre ("Para:")</label>
+                    <input type="text" id="input-guest" class="w-full px-3 py-2 rounded-lg bg-obsidian-950 border border-royal-500/40 text-white text-sm focus:outline-none focus:border-cyanGlow">
+                </div>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    <div>
+                        <label class="block text-xs font-medium text-slate-300 mb-1">Tu nombre (Cumpleañero)</label>
+                        <input type="text" id="input-host" class="w-full px-3 py-2 rounded-lg bg-obsidian-950 border border-royal-500/40 text-white text-sm focus:outline-none focus:border-cyanGlow">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-medium text-slate-300 mb-1">PIN de Anfitrión</label>
+                        <input type="text" id="input-pin" maxlength="8" placeholder="2008" class="w-full px-3 py-2 rounded-lg bg-obsidian-950 border border-royal-500/40 text-white text-sm focus:outline-none focus:border-cyanGlow">
+                    </div>
+                </div>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    <div>
+                        <label class="block text-xs font-medium text-slate-300 mb-1">Fecha</label>
+                        <input type="text" id="input-date" class="w-full px-3 py-2 rounded-lg bg-obsidian-950 border border-royal-500/40 text-white text-sm focus:outline-none focus:border-cyanGlow">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-medium text-slate-300 mb-1">Hora</label>
+                        <input type="text" id="input-time" class="w-full px-3 py-2 rounded-lg bg-obsidian-950 border border-royal-500/40 text-white text-sm focus:outline-none focus:border-cyanGlow">
+                    </div>
+                </div>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    <div>
+                        <label class="block text-xs font-medium text-slate-300 mb-1">Lugar</label>
+                        <input type="text" id="input-venue" class="w-full px-3 py-2 rounded-lg bg-obsidian-950 border border-royal-500/40 text-white text-sm focus:outline-none focus:border-cyanGlow">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-medium text-slate-300 mb-1">Código de vestimenta</label>
+                        <input type="text" id="input-dress" class="w-full px-3 py-2 rounded-lg bg-obsidian-950 border border-royal-500/40 text-white text-sm focus:outline-none focus:border-cyanGlow">
+                    </div>
+                </div>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    <div>
+                        <label class="block text-xs font-medium text-slate-300 mb-1">Enlace de Google Maps</label>
+                        <input type="url" id="input-map" class="w-full px-3 py-2 rounded-lg bg-obsidian-950 border border-royal-500/40 text-white text-sm focus:outline-none focus:border-cyanGlow">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-medium text-slate-300 mb-1">Tu WhatsApp</label>
+                        <input type="text" id="input-phone" placeholder="948 228 233" class="w-full px-3 py-2 rounded-lg bg-obsidian-950 border border-royal-500/40 text-white text-sm focus:outline-none focus:border-cyanGlow">
+                    </div>
+                </div>
+                <div>
+                    <label class="block text-xs font-medium text-slate-300 mb-1">Mensaje de la carta</label>
+                    <textarea id="input-message" rows="2" class="w-full px-3 py-2 rounded-lg bg-obsidian-950 border border-royal-500/40 text-white text-xs focus:outline-none focus:border-cyanGlow"></textarea>
+                </div>
+
+                <div class="pt-2 flex flex-col sm:flex-row gap-2">
+                    <button type="button" id="apply-custom-btn" class="btn-royal flex-1 py-2.5 px-4 rounded-xl text-white text-xs font-semibold cursor-pointer">
+                        Guardar Datos
+                    </button>
+                    <button type="button" id="copy-link-btn" class="flex-1 py-2.5 px-4 rounded-xl bg-obsidian-800 hover:bg-obsidian-700 text-cyanGlow border border-royal-500/45 text-xs font-semibold cursor-pointer">
+                        Copiar Enlace para Invitado
+                    </button>
+                </div>
+                <p id="copy-feedback" class="text-center text-xs text-emerald-400 font-medium hidden">
+                    ¡Listo! Enlace personalizado copiado.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Pie de página discreto -->
+    <footer class="w-full py-2.5 text-center text-[11px] text-slate-500 z-10">
+        Con cariño • Mis 18 Años
+    </footer>
+
+    <!-- Lógica completa: Interacción, Confeti, Personalización y Base de Datos en la Nube -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+        import { getAuth, signInAnonymously, signInWithCustomToken } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+        import { getFirestore, doc, setDoc, addDoc, getDocs, deleteDoc, onSnapshot, collection } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+
+        // =========================================================================
+        // ESTADO GLOBAL, ELEMENTOS DEL DOM Y CONFIGURACIÓN DEL EVENTO
+        // =========================================================================
+        const envelopeEl = document.getElementById('envelope');
+        const letterStageEl = document.getElementById('letter-stage');
+        const closeLetterBtn = document.getElementById('close-letter-btn');
+        const openTextTrigger = document.getElementById('open-text-trigger');
+
+        const GITHUB_FIREBASE_CONFIG = null;
+        const appId = typeof __app_id !== 'undefined' ? __app_id : 'invitacion-18-andree';
+
+        let db = null;
+        let auth = null;
+        let currentUser = null;
+        let rsvpsUnsubscribe = null;
+        let isEnvelopeOpen = false;
+        let isHostUnlocked = false;
+        let pendingOpenCustomizerAfterPin = false;
+        let rsvpList = [];
+
+        let invitedNamesList = [
+            'Sthefany', 'Any', 'Mayte', 'Celinna', 'Ariana', 'Anett', 'Erick', 'Matías',
+            'Freddy', 'Danilo', 'Sharen', 'Gean Carlos', 'Livana', 'Camila', 'Carlos',
+            'Diego', 'Jaime', 'Dayana', 'Sofia', 'Sebastian', 'Ruth', 'Salim', 'Jazmin',
+            'Luther', 'Juan Carlos', 'Marquito', 'Astrid', 'Treyci', 'Dayron', 'Jean Pierre',
+            'Rodrigo'
+        ];
+
+        const defaultConfig = {
+            guest: 'Alguien muy especial',
+            host: 'Andree Cristopher Quispe Ccosi',
+            pin: '2008',
+            date: 'Sábado, 28 de Noviembre',
+            time: '6:00 PM',
+            venue: 'Ubicación de mi domicilio',
+            dress: 'Libre',
+            map: 'https://www.google.com/maps/@-16.4769391,-71.5052337,2409a,75y,137.73h,94.34t/data=!3m7!1e1!3m5!1seX1hNo9GOleJfJKpawIZ6g!2e0!6shttps:%2F%2Fstreetviewpixels-pa.clients6.google.com%2Fv1%2Fthumbnail%3Fcb_client%3Dmaps_sv.tactile%26w%3D900%26h%3D600%26pitch%3D-4.336992623953293%26panoid%3DeX1hNo9GOleJfJKpawIZ6g%26yaw%3D137.73342875912016!7i16384!8i8192?entry=ttu&g_ep=EgoyMDI2MTExOC4xIKXMDSoASAFQAw%3D%3D',
+            phone: '948 228 233',
+            message: '"Doy gracias a Dios por concederme la bendición de un año más de vida lleno de salud y esperanza".\nLa vida nos regala momentos especiales, y celebrarlos junto a quienes más aprecio los vuelve inolvidables; por eso, con mucha alegría quiero invitarte a un compartir este sábado 28 para festejar mis 18 años y pasar un momento agradable.'
+        };
+
+        function getGuestFromUrl() {
+            try {
+                const hash = window.location.hash || '';
+                if (hash.includes('para=')) {
+                    const hashParams = new URLSearchParams(hash.replace(/^#/, ''));
+                    const fromHash = hashParams.get('para');
+                    if (fromHash && fromHash.trim()) return decodeURIComponent(fromHash.trim());
+                }
+                const searchParams = new URLSearchParams(window.location.search);
+                const fromQuery = searchParams.get('para') || searchParams.get('guest');
+                if (fromQuery && fromQuery.trim()) return fromQuery.trim();
+            } catch (err) {
+                console.warn('Error leyendo invitado de URL:', err);
+            }
+            return '';
+        }
+
+        function isTemporaryPreviewEnv() {
+            return window.location.protocol === 'blob:' ||
+                   window.location.hostname.includes('scf.usercontent.goog') ||
+                   window.location.hostname.includes('localhost');
+        }
+
+        let urlGuestParam = getGuestFromUrl();
+        let currentConfig = {
+            ...defaultConfig,
+            guest: urlGuestParam || defaultConfig.guest
+        };
+
+        function getHostFirstName() {
+            return (currentConfig.host || 'Andree').trim().split(/\s+/)[0] || 'Andree';
+        }
+
+        function applyConfigToUI() {
+            const envGuest = document.getElementById('envelope-guest-name');
+            const letGuest = document.getElementById('letter-guest-name');
+            const letHost = document.getElementById('letter-host-name');
+            const letMsg = document.getElementById('letter-message');
+            const evDate = document.getElementById('event-date');
+            const evTime = document.getElementById('event-time');
+            const evVenue = document.getElementById('event-venue');
+            const evMap = document.getElementById('event-map-link');
+            const evDress = document.getElementById('event-dresscode');
+
+            if (envGuest) envGuest.textContent = currentConfig.guest;
+            if (letGuest) letGuest.textContent = currentConfig.guest;
+            if (letHost) letHost.textContent = currentConfig.host;
+            if (letMsg) letMsg.textContent = currentConfig.message;
+            if (evDate) evDate.textContent = currentConfig.date;
+            if (evTime) evTime.textContent = currentConfig.time;
+            if (evVenue) evVenue.textContent = currentConfig.venue;
+            if (evMap) evMap.href = currentConfig.map;
+            if (evDress) evDress.textContent = currentConfig.dress;
+        }
+
+        function launchConfetti() {
+            const canvas = document.getElementById('confetti-canvas');
+            if (!canvas) return;
+            const ctx = canvas.getContext('2d');
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+
+            const colors = ['#38BDF8', '#2563EB', '#93C5FD', '#E2E8F0', '#FEF08A'];
+            const pieces = Array.from({ length: 75 }, () => ({
+                x: Math.random() * canvas.width,
+                y: Math.random() * -canvas.height * 0.5 - 10,
+                w: Math.random() * 7 + 4,
+                h: Math.random() * 4 + 3,
+                color: colors[Math.floor(Math.random() * colors.length)],
+                vy: Math.random() * 2.5 + 1.8,
+                vx: (Math.random() - 0.5) * 2,
+                rot: Math.random() * 360,
+                vRot: (Math.random() - 0.5) * 6,
+                opacity: 1
+            }));
+
+            let frame = 0;
+            function step() {
+                frame++;
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                let active = false;
+
+                pieces.forEach(p => {
+                    p.x += p.vx;
+                    p.y += p.vy;
+                    p.rot += p.vRot;
+                    if (frame > 95) p.opacity = Math.max(0, p.opacity - 0.02);
+
+                    if (p.opacity > 0 && p.y < canvas.height + 20) {
+                        active = true;
+                        ctx.save();
+                        ctx.globalAlpha = p.opacity;
+                        ctx.translate(p.x, p.y);
+                        ctx.rotate((p.rot * Math.PI) / 180);
+                        ctx.fillStyle = p.color;
+                        ctx.fillRect(-p.w / 2, -p.h / 2, p.w, p.h);
+                        ctx.restore();
+                    }
+                });
+
+                if (active) {
+                    requestAnimationFrame(step);
+                } else {
+                    ctx.clearRect(0, 0, canvas.width, canvas.height);
+                }
+            }
+            requestAnimationFrame(step);
+        }
+
+        function openInvitation() {
+            if (isEnvelopeOpen) return;
+            isEnvelopeOpen = true;
+            if (envelopeEl) envelopeEl.classList.add('is-open');
+            launchConfetti();
+
+            setTimeout(() => {
+                if (letterStageEl) {
+                    letterStageEl.classList.remove('hidden', 'opacity-0', 'pointer-events-none');
+                    letterStageEl.classList.add('flex', 'active');
+                    letterStageEl.setAttribute('aria-hidden', 'false');
+                }
+            }, 520);
+        }
+
+        function closeInvitation() {
+            isEnvelopeOpen = false;
+            if (letterStageEl) {
+                letterStageEl.classList.remove('active', 'flex');
+                letterStageEl.classList.add('opacity-0', 'pointer-events-none');
+                letterStageEl.setAttribute('aria-hidden', 'true');
+                setTimeout(() => {
+                    if (!isEnvelopeOpen) {
+                        letterStageEl.classList.add('hidden');
+                    }
+                }, 300);
+            }
+            setTimeout(() => {
+                if (envelopeEl) envelopeEl.classList.remove('is-open');
+            }, 220);
+        }
+
+        if (envelopeEl) {
+            envelopeEl.addEventListener('click', openInvitation);
+            envelopeEl.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    openInvitation();
+                }
+            });
+        }
+        if (openTextTrigger) {
+            openTextTrigger.addEventListener('click', openInvitation);
+        }
+
+        window.addEventListener('hashchange', () => {
+            const updatedGuest = getGuestFromUrl();
+            if (updatedGuest) {
+                urlGuestParam = updatedGuest;
+                currentConfig.guest = updatedGuest;
+                applyConfigToUI();
+                updateSingleAttemptUI();
+            }
+        });
+
+        // Inicializar Firebase y autenticación (soporta entorno actual y GitHub Pages)
+        async function initCloudSync() {
+            const syncDot = document.getElementById('sync-status-dot');
+            const syncText = document.getElementById('sync-status-text');
+            try {
+                let firebaseConfig = null;
+                if (typeof __firebase_config !== 'undefined' && __firebase_config) {
+                    firebaseConfig = JSON.parse(__firebase_config);
+                } else if (GITHUB_FIREBASE_CONFIG && GITHUB_FIREBASE_CONFIG.apiKey && GITHUB_FIREBASE_CONFIG.projectId) {
+                    firebaseConfig = GITHUB_FIREBASE_CONFIG;
+                }
+
+                if (!firebaseConfig) {
+                    if (syncDot) syncDot.className = 'w-2 h-2 rounded-full bg-amber-400';
+                    if (syncText) syncText.textContent = 'Pega tu GITHUB_FIREBASE_CONFIG para ver en vivo en GitHub Pages';
+                    return;
+                }
+
+                const app = initializeApp(firebaseConfig);
+                auth = getAuth(app);
+                db = getFirestore(app);
+
+                if (typeof __initial_auth_token !== 'undefined' && __initial_auth_token) {
+                    const cred = await signInWithCustomToken(auth, __initial_auth_token);
+                    currentUser = cred.user;
+                } else {
+                    const cred = await signInAnonymously(auth);
+                    currentUser = cred.user;
+                }
+
+                startRealtimeListeners();
+            } catch (err) {
+                console.warn('Modo local activo:', err);
+                if (syncDot) syncDot.className = 'w-2 h-2 rounded-full bg-amber-400';
+                if (syncText) syncText.textContent = 'Sin conexión a la nube';
+            }
+        }
+
+        // Forzar lectura inmediata desde la nube
+        async function forceRefreshRsvps() {
+            const syncText = document.getElementById('sync-status-text');
+            const refreshIcon = document.getElementById('refresh-rsvps-icon');
+            if (refreshIcon) refreshIcon.classList.add('animate-spin');
+
+            if (db && currentUser) {
+                try {
+                    const rsvpsColRef = collection(db, 'artifacts', appId, 'public', 'data', 'rsvps');
+                    const snapshot = await getDocs(rsvpsColRef);
+                    rsvpList = snapshot.docs.map(docSnap => ({
+                        id: docSnap.id,
+                        ...docSnap.data()
+                    })).sort((a, b) => (b.createdAt || 0) - (a.createdAt || 0));
+
+                    const nowTime = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+                    if (syncText) syncText.textContent = `En vivo • Sincronizado (${nowTime})`;
+                } catch (err) {
+                    console.warn('Error al refrescar confirmaciones:', err);
+                }
+            }
+
+            renderHostDashboard();
+            renderGuestLinksList();
+            setTimeout(() => {
+                if (refreshIcon) refreshIcon.classList.remove('animate-spin');
+            }, 500);
+        }
+
+        // Escuchar configuración y lista de confirmaciones en tiempo real
+        function startRealtimeListeners() {
+            if (!db || !currentUser) return;
+            const syncDot = document.getElementById('sync-status-dot');
+            const syncText = document.getElementById('sync-status-text');
+
+            const configDocRef = doc(db, 'artifacts', appId, 'public', 'data', 'settings', 'eventConfig');
+            onSnapshot(configDocRef, async (docSnap) => {
+                if (docSnap.exists()) {
+                    const data = docSnap.data();
+                    if (!data.pin || String(data.pin).trim() === '1818') {
+                        data.pin = '2008';
+                        try {
+                            await setDoc(configDocRef, { pin: '2008' }, { merge: true });
+                        } catch (err) {
+                            console.warn('No se pudo migrar el PIN antiguo:', err);
+                        }
+                    }
+
+                    // Sincronizar globalmente las actualizaciones fijas del evento si estaban desactualizadas
+                    const globalUpdates = {};
+                    if (!data.venue || data.venue === 'Ubicación del Evento') {
+                        data.venue = defaultConfig.venue;
+                        globalUpdates.venue = defaultConfig.venue;
+                    }
+                    if (data.dress !== defaultConfig.dress) {
+                        data.dress = defaultConfig.dress;
+                        globalUpdates.dress = defaultConfig.dress;
+                    }
+                    if (data.phone !== defaultConfig.phone) {
+                        data.phone = defaultConfig.phone;
+                        globalUpdates.phone = defaultConfig.phone;
+                    }
+                    if (!data.message || !data.message.includes('pasar un momento agradable')) {
+                        data.message = defaultConfig.message;
+                        globalUpdates.message = defaultConfig.message;
+                    }
+                    if (!Array.isArray(data.invitedList) || data.invitedList.includes('Camila Torres')) {
+                        data.invitedList = [...invitedNamesList];
+                        globalUpdates.invitedList = [...invitedNamesList];
+                    }
+                    if (Object.keys(globalUpdates).length > 0) {
+                        try {
+                            await setDoc(configDocRef, globalUpdates, { merge: true });
+                        } catch (err) {
+                            console.warn('No se pudo sincronizar la configuración global:', err);
+                        }
+                    }
+
+                    currentConfig = {
+                        ...currentConfig,
+                        ...data,
+                        guest: urlGuestParam || data.guest || defaultConfig.guest,
+                        pin: String(data.pin || '2008').trim()
+                    };
+                    if (Array.isArray(data.invitedList) && data.invitedList.length > 0) {
+                        invitedNamesList = data.invitedList;
+                    }
+                    applyConfigToUI();
+                    renderGuestLinksList();
+                } else {
+                    try {
+                        await setDoc(configDocRef, { ...defaultConfig, invitedList: invitedNamesList });
+                    } catch (err) {
+                        console.warn('Error inicializando configuración:', err);
+                    }
+                }
+            }, (error) => {
+                console.warn('Error escuchando configuración:', error);
+            });
+
+            if (rsvpsUnsubscribe) {
+                rsvpsUnsubscribe();
+            }
+
+            const rsvpsColRef = collection(db, 'artifacts', appId, 'public', 'data', 'rsvps');
+            rsvpsUnsubscribe = onSnapshot(rsvpsColRef, (snapshot) => {
+                rsvpList = snapshot.docs.map(docSnap => ({
+                    id: docSnap.id,
+                    ...docSnap.data()
+                })).sort((a, b) => (b.createdAt || 0) - (a.createdAt || 0));
+
+                const nowTime = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+                if (syncDot) syncDot.className = 'w-2 h-2 rounded-full bg-emerald-400 animate-pulse';
+                if (syncText) syncText.textContent = `En vivo • Actualizado ${nowTime}`;
+
+                renderHostDashboard();
+                renderGuestLinksList();
+            }, (error) => {
+                console.warn('Error escuchando confirmaciones en vivo:', error);
+                if (syncDot) syncDot.className = 'w-2 h-2 rounded-full bg-rose-400';
+                if (syncText) syncText.textContent = 'Error de sincronización';
+            });
+        }
+
+        // Re-sincronizar automáticamente al volver a abrir la pestaña o app en el celular
+        document.addEventListener('visibilitychange', () => {
+            if (document.visibilityState === 'visible' && isHostUnlocked) {
+                forceRefreshRsvps();
+            }
+        });
+        closeLetterBtn.addEventListener('click', closeInvitation);
+
+        // Modal RSVP (Confirmar Asistencia - 1 solo intento por invitado)
+        const rsvpModal = document.getElementById('rsvp-modal');
+        const openRsvpBtn = document.getElementById('open-rsvp-btn');
+        const openRsvpBtnLabel = document.getElementById('open-rsvp-btn-label');
+        const alreadyConfirmedHint = document.getElementById('already-confirmed-hint');
+        const closeRsvpBtn = document.getElementById('close-rsvp-btn');
+        const rsvpForm = document.getElementById('rsvp-form');
+        const rsvpStatus = document.getElementById('rsvp-status');
+        const rsvpFormContainer = document.getElementById('rsvp-form-container');
+        const rsvpSuccessContainer = document.getElementById('rsvp-success-container');
+        const rsvpDoneBtn = document.getElementById('rsvp-done-btn');
+
+        function getRsvpStorageKey() {
+            const guestKey = (urlGuestParam || currentConfig.guest || 'invitado').trim().toLowerCase();
+            return `invitacion_18_andree_rsvp_${guestKey}`;
+        }
+
+        function getSavedGuestRsvp() {
+            try {
+                const raw = localStorage.getItem(getRsvpStorageKey());
+                return raw ? JSON.parse(raw) : null;
+            } catch (err) {
+                return null;
+            }
+        }
+
+        function updateSingleAttemptUI() {
+            const saved = getSavedGuestRsvp();
+            if (saved) {
+                openRsvpBtn.classList.remove('btn-royal');
+                openRsvpBtn.classList.add('bg-emerald-600/25', 'border', 'border-emerald-400/50', 'text-emerald-300');
+                openRsvpBtnLabel.textContent = saved.status === 'confirmed'
+                    ? 'Asistencia Confirmada ✓'
+                    : 'Respuesta Registrada ✓';
+                alreadyConfirmedHint.classList.remove('hidden');
+            } else {
+                openRsvpBtn.classList.add('btn-royal');
+                openRsvpBtn.classList.remove('bg-emerald-600/25', 'border', 'border-emerald-400/50', 'text-emerald-300');
+                openRsvpBtnLabel.textContent = 'Confirmar Asistencia';
+                alreadyConfirmedHint.classList.add('hidden');
+            }
+        }
+
+        function populateSuccessView(record) {
+            const summaryEl = document.getElementById('rsvp-summary-text');
+            if (record.status === 'confirmed') {
+                summaryEl.textContent = `¡Gracias ${record.name}! Tu asistencia ya fue registrada (1 intento por invitación).`;
+            } else {
+                summaryEl.textContent = `Gracias por avisar, ${record.name}. Tu respuesta ya quedó registrada.`;
+            }
+
+            let cleanPhone = (currentConfig.phone || '948 228 233').replace(/\D/g, '');
+            if (cleanPhone.length === 9) {
+                cleanPhone = '51' + cleanPhone;
+            }
+            const hostFirstName = getHostFirstName();
+            const waText = record.status === 'confirmed'
+                ? `¡Hola ${hostFirstName}! Soy *${record.name}*, confirmo mi asistencia a tus 18 años.${record.note ? ` Mensaje: ${record.note}` : ''}`
+                : `Hola ${hostFirstName}, soy *${record.name}*, lamentablemente no podré acompañarte en tus 18 años. ¡Muchas felicidades!`;
+            
+            document.getElementById('whatsapp-share-btn').href = `https://wa.me/${cleanPhone}?text=${encodeURIComponent(waText)}`;
+        }
+
+        const getFieldValue = (id, fallback = '') => {
+            const el = document.getElementById(id);
+            return el && typeof el.value === 'string' ? el.value.trim() : fallback;
+        };
+
+        openRsvpBtn.addEventListener('click', () => {
+            const existingRsvp = getSavedGuestRsvp();
+            if (existingRsvp) {
+                // Bloquea un segundo intento y muestra directamente su confirmación ya registrada
+                populateSuccessView(existingRsvp);
+                rsvpFormContainer.classList.add('hidden');
+                rsvpSuccessContainer.classList.remove('hidden');
+                rsvpModal.classList.remove('hidden');
+                rsvpModal.classList.add('flex');
+                return;
+            }
+
+            const nameInput = document.getElementById('rsvp-name');
+            if (nameInput && !nameInput.value && currentConfig.guest !== 'Alguien muy especial') {
+                nameInput.value = currentConfig.guest;
+            }
+            rsvpFormContainer.classList.remove('hidden');
+            rsvpSuccessContainer.classList.add('hidden');
+            rsvpModal.classList.remove('hidden');
+            rsvpModal.classList.add('flex');
+        });
+
+        closeRsvpBtn.addEventListener('click', () => {
+            rsvpModal.classList.add('hidden');
+            rsvpModal.classList.remove('flex');
+        });
+
+        rsvpDoneBtn.addEventListener('click', () => {
+            rsvpModal.classList.add('hidden');
+            rsvpModal.classList.remove('flex');
+        });
+
+        rsvpForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            if (getSavedGuestRsvp()) return;
+
+            const submitBtn = document.getElementById('rsvp-submit-btn');
+            const name = getFieldValue('rsvp-name');
+            const status = rsvpStatus ? rsvpStatus.value : 'confirmed';
+            const note = getFieldValue('rsvp-note');
+
+            if (!name) return;
+
+            if (submitBtn) {
+                submitBtn.disabled = true;
+                submitBtn.textContent = 'Guardando...';
+            }
+
+            const record = {
+                name,
+                status,
+                companions: 0,
+                totalPeople: status === 'confirmed' ? 1 : 0,
+                note,
+                createdAt: Date.now()
+            };
+
+            try {
+                localStorage.setItem(getRsvpStorageKey(), JSON.stringify(record));
+            } catch (err) {
+                console.warn('No se pudo guardar bloqueo local:', err);
+            }
+
+            try {
+                if (db && currentUser) {
+                    const rsvpsColRef = collection(db, 'artifacts', appId, 'public', 'data', 'rsvps');
+                    await addDoc(rsvpsColRef, record);
+                } else {
+                    rsvpList.unshift({ id: String(Date.now()), ...record });
+                    renderHostDashboard();
+                }
+            } catch (err) {
+                console.error('Error guardando RSVP:', err);
+            }
+
+            if (submitBtn) {
+                submitBtn.disabled = false;
+                submitBtn.textContent = 'Guardar Confirmación';
+            }
+
+            updateSingleAttemptUI();
+            populateSuccessView(record);
+            if (status === 'confirmed') {
+                launchConfetti();
+            }
+
+            rsvpFormContainer.classList.add('hidden');
+            rsvpSuccessContainer.classList.remove('hidden');
+        });
+
+        // Panel de Anfitrión (PIN 2008)
+        const openHostBtn = document.getElementById('open-host-btn');
+        const closeHostBtn = document.getElementById('close-host-btn');
+        const hostModal = document.getElementById('host-modal');
+        const hostPinScreen = document.getElementById('host-pin-screen');
+        const hostPinForm = document.getElementById('host-pin-form');
+        const hostPinInput = document.getElementById('host-pin-input');
+        const hostPinError = document.getElementById('host-pin-error');
+        const hostDashboard = document.getElementById('host-dashboard');
+        const rsvpListContainer = document.getElementById('rsvp-list-container');
+        const messagesListContainer = document.getElementById('messages-list-container');
+        const statConfirmed = document.getElementById('stat-confirmed');
+        const statTotalPeople = document.getElementById('stat-total-people');
+        const statDeclined = document.getElementById('stat-declined');
+        const copyGuestlistBtn = document.getElementById('copy-guestlist-btn');
+        const copyListLabel = document.getElementById('copy-list-label');
+        const tabLinksBtn = document.getElementById('tab-links-btn');
+        const tabRsvpsBtn = document.getElementById('tab-rsvps-btn');
+        const tabMessagesBtn = document.getElementById('tab-messages-btn');
+        const hostLinksView = document.getElementById('host-links-view');
+        const hostRsvpsView = document.getElementById('host-rsvps-view');
+        const hostMessagesView = document.getElementById('host-messages-view');
+        const guestLinksContainer = document.getElementById('guest-links-container');
+        const searchGuestInput = document.getElementById('search-guest-input');
+        const addGuestForm = document.getElementById('add-guest-form');
+        const newGuestNameInput = document.getElementById('new-guest-name-input');
+        const copyAllLinksBtn = document.getElementById('copy-all-links-btn');
+        const copyAllLinksLabel = document.getElementById('copy-all-links-label');
+        const invitedCountBadge = document.getElementById('invited-count-badge');
+        const rsvpCountBadge = document.getElementById('rsvp-count-badge');
+        const messagesCountBadge = document.getElementById('messages-count-badge');
+        const customBaseUrlInput = document.getElementById('custom-base-url-input');
+        const refreshRsvpsBtn = document.getElementById('refresh-rsvps-btn');
+
+        if (refreshRsvpsBtn) {
+            refreshRsvpsBtn.addEventListener('click', forceRefreshRsvps);
+        }
+
+        // Construir URL limpia compatible con GitHub Pages (subcarpetas y raíz)
+        function buildGuestInviteUrl(guestName) {
+            const safeName = encodeURIComponent(guestName.trim());
+            let baseHref = '';
+
+            if (isTemporaryPreviewEnv()) {
+                const manualBase = (customBaseUrlInput && customBaseUrlInput.value.trim()) || '';
+                if (manualBase) {
+                    baseHref = manualBase.split('#')[0].split('?')[0];
+                } else {
+                    return `https://tuusuario.github.io/invitacion/#para=${safeName}`;
+                }
+            } else {
+                // Usa la URL exacta actual sin parámetros previos y añade el hash seguro #para=Nombre
+                baseHref = window.location.origin + window.location.pathname;
+            }
+
+            return `${baseHref}#para=${safeName}`;
+        }
+
+        if (customBaseUrlInput) {
+            customBaseUrlInput.addEventListener('input', renderGuestLinksList);
+        }
+
+        function switchHostTab(tab) {
+            const views = {
+                links: { view: hostLinksView, btn: tabLinksBtn },
+                rsvps: { view: hostRsvpsView, btn: tabRsvpsBtn },
+                messages: { view: hostMessagesView, btn: tabMessagesBtn }
+            };
+
+            Object.entries(views).forEach(([key, item]) => {
+                if (key === tab) {
+                    item.view.classList.remove('hidden');
+                    item.view.classList.add('flex');
+                    item.btn.classList.add('bg-royal-600', 'text-white');
+                    item.btn.classList.remove('text-slate-300', 'hover:bg-obsidian-800');
+                } else {
+                    item.view.classList.add('hidden');
+                    item.view.classList.remove('flex');
+                    item.btn.classList.remove('bg-royal-600', 'text-white');
+                    item.btn.classList.add('text-slate-300', 'hover:bg-obsidian-800');
+                }
+            });
+        }
+
+        tabLinksBtn.addEventListener('click', () => switchHostTab('links'));
+        tabRsvpsBtn.addEventListener('click', () => switchHostTab('rsvps'));
+        tabMessagesBtn.addEventListener('click', () => switchHostTab('messages'));
+        openHostBtn.addEventListener('click', () => {
+            pendingOpenCustomizerAfterPin = false;
+            hostModal.classList.remove('hidden');
+            hostModal.classList.add('flex');
+            if (isHostUnlocked) {
+                hostPinScreen.classList.add('hidden');
+                hostDashboard.classList.remove('hidden');
+                hostDashboard.classList.add('flex');
+                renderHostDashboard();
+                renderGuestLinksList();
+            } else {
+                hostPinScreen.classList.remove('hidden');
+                hostDashboard.classList.add('hidden');
+                hostDashboard.classList.remove('flex');
+                hostPinInput.value = '';
+                hostPinError.classList.add('hidden');
+                setTimeout(() => hostPinInput.focus(), 100);
+            }
+        });
+
+        closeHostBtn.addEventListener('click', () => {
+            pendingOpenCustomizerAfterPin = false;
+            hostModal.classList.add('hidden');
+            hostModal.classList.remove('flex');
+        });
+
+        hostPinForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const entered = hostPinInput.value.trim();
+            const validPin = String(currentConfig.pin || '2008').trim();
+            if (entered === validPin || entered === '2008') {
+                isHostUnlocked = true;
+                hostPinError.classList.add('hidden');
+                if (pendingOpenCustomizerAfterPin) {
+                    pendingOpenCustomizerAfterPin = false;
+                    hostModal.classList.add('hidden');
+                    hostModal.classList.remove('flex');
+                    openCustomizerModalDirect();
+                    return;
+                }
+                hostPinScreen.classList.add('hidden');
+                hostDashboard.classList.remove('hidden');
+                hostDashboard.classList.add('flex');
+                renderHostDashboard();
+                renderGuestLinksList();
+            } else {
+                hostPinError.classList.remove('hidden');
+                hostPinInput.value = '';
+                hostPinInput.focus();
+            }
+        });
+
+        function renderGuestLinksList() {
+            const previewWarning = document.getElementById('preview-env-warning');
+            if (previewWarning) {
+                if (isTemporaryPreviewEnv()) {
+                    previewWarning.classList.remove('hidden');
+                } else {
+                    previewWarning.classList.add('hidden');
+                }
+            }
+
+            const filter = (searchGuestInput.value || '').trim().toLowerCase();
+            invitedCountBadge.textContent = invitedNamesList.length;
+
+            const filtered = invitedNamesList
+                .map((name, index) => ({ name, number: index + 1 }))
+                .filter(item => item.name.toLowerCase().includes(filter));
+
+            if (filtered.length === 0) {
+                guestLinksContainer.innerHTML = '<p class="text-center text-xs text-slate-500 py-8">No se encontró ningún invitado con ese nombre.</p>';
+                return;
+            }
+
+            guestLinksContainer.innerHTML = filtered.map(item => {
+                const normalizedName = item.name.trim().toLowerCase();
+                const rsvpMatch = rsvpList.find(r => (r.name || '').trim().toLowerCase().includes(normalizedName));
+                let statusPill = '<span class="text-[10px] px-2 py-0.5 rounded-full bg-slate-800 text-slate-400 border border-slate-700">Pendiente</span>';
+                if (rsvpMatch) {
+                    statusPill = rsvpMatch.status === 'confirmed'
+                        ? `<span class="text-[10px] px-2 py-0.5 rounded-full bg-emerald-500/15 text-emerald-300 border border-emerald-500/40">Confirmó (${1 + (Number(rsvpMatch.companions) || 0)})</span>`
+                        : '<span class="text-[10px] px-2 py-0.5 rounded-full bg-rose-500/15 text-rose-300 border border-rose-500/40">No asiste</span>';
+                }
+
+                const inviteLink = buildGuestInviteUrl(item.name);
+                const waInviteMsg = `¡Hola ${item.name}! Te envío tu invitación personal para celebrar mis 18 años este Sábado 28 de Noviembre a las 6:00 PM 🎉✨ Ábrela aquí: ${inviteLink}`;
+                const waUrl = `https://wa.me/?text=${encodeURIComponent(waInviteMsg)}`;
+
+                return `
+                    <div class="p-3 rounded-xl bg-obsidian-950/90 border border-royal-500/30 flex flex-wrap sm:flex-nowrap items-center justify-between gap-2.5">
+                        <div class="min-w-0 flex-1">
+                            <div class="flex items-center gap-2 flex-wrap">
+                                <span class="text-[11px] font-mono text-royal-400">#${item.number}</span>
+                                <p class="text-xs sm:text-sm font-semibold text-white truncate">${escapeHtml(item.name)}</p>
+                                ${statusPill}
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-1.5 shrink-0">
+                            <button type="button" data-preview-guest="${escapeHtml(item.name)}"
+                                class="preview-guest-btn px-2.5 py-1.5 rounded-lg bg-royal-600/25 hover:bg-royal-600/40 border border-royal-400/50 text-white text-[11px] font-semibold transition cursor-pointer"
+                                title="Ver cómo le aparece la carta a ${escapeHtml(item.name)}">
+                                Ver carta
+                            </button>
+                            <button type="button" data-copy-guest="${escapeHtml(item.name)}"
+                                class="copy-single-link-btn px-2.5 py-1.5 rounded-lg bg-obsidian-800 hover:bg-obsidian-700 border border-royal-500/40 text-cyanGlow text-[11px] font-semibold transition cursor-pointer">
+                                Copiar link
+                            </button>
+                            <a href="${waUrl}" target="_blank" rel="noopener noreferrer"
+                                class="px-2.5 py-1.5 rounded-lg bg-[#25D366]/20 hover:bg-[#25D366]/30 border border-[#25D366]/45 text-[#4ADE80] text-[11px] font-semibold transition"
+                                title="Enviar directo por WhatsApp">
+                                WhatsApp
+                            </a>
+                            <button type="button" data-delete-guest-index="${item.number - 1}"
+                                class="delete-guest-btn p-1.5 rounded-lg bg-rose-500/15 hover:bg-rose-500/30 border border-rose-500/35 text-rose-300 transition cursor-pointer"
+                                title="Eliminar invitado de la lista">
+                                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>
+                            </button>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+
+            guestLinksContainer.querySelectorAll('.delete-guest-btn').forEach(btn => {
+                btn.addEventListener('click', async () => {
+                    const idx = Number(btn.getAttribute('data-delete-guest-index'));
+                    if (Number.isNaN(idx) || idx < 0 || idx >= invitedNamesList.length) return;
+                    invitedNamesList.splice(idx, 1);
+                    renderGuestLinksList();
+
+                    if (db && currentUser) {
+                        try {
+                            const configDocRef = doc(db, 'artifacts', appId, 'public', 'data', 'settings', 'eventConfig');
+                            await setDoc(configDocRef, { invitedList: invitedNamesList }, { merge: true });
+                        } catch (err) {
+                            console.warn('No se pudo eliminar invitado en la nube:', err);
+                        }
+                    }
+                });
+            });
+
+            guestLinksContainer.querySelectorAll('.preview-guest-btn').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const guestName = btn.getAttribute('data-preview-guest');
+                    urlGuestParam = guestName;
+                    currentConfig.guest = guestName;
+                    applyConfigToUI();
+                    if (!isTemporaryPreviewEnv()) {
+                        try {
+                            window.history.replaceState(null, '', buildGuestInviteUrl(guestName));
+                        } catch (err) {
+                            console.warn('No se pudo actualizar URL:', err);
+                        }
+                    }
+                    hostModal.classList.add('hidden');
+                    hostModal.classList.remove('flex');
+                    updateSingleAttemptUI();
+                    if (isEnvelopeOpen) {
+                        closeInvitation();
+                    }
+                });
+            });
+
+            guestLinksContainer.querySelectorAll('.copy-single-link-btn').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const guestName = btn.getAttribute('data-copy-guest');
+                    const link = buildGuestInviteUrl(guestName);
+                    copyTextFallback(link);
+                    const prevText = btn.textContent;
+                    btn.textContent = '¡Copiado!';
+                    btn.classList.add('border-emerald-400', 'text-emerald-300');
+                    setTimeout(() => {
+                        btn.textContent = prevText;
+                        btn.classList.remove('border-emerald-400', 'text-emerald-300');
+                    }, 1800);
+                });
+            });
+        }
+
+        searchGuestInput.addEventListener('input', renderGuestLinksList);
+
+        addGuestForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const newName = newGuestNameInput.value.trim();
+            if (!newName) return;
+            invitedNamesList.push(newName);
+            newGuestNameInput.value = '';
+            renderGuestLinksList();
+
+            if (db && currentUser) {
+                try {
+                    const configDocRef = doc(db, 'artifacts', appId, 'public', 'data', 'settings', 'eventConfig');
+                    await setDoc(configDocRef, { invitedList: invitedNamesList }, { merge: true });
+                } catch (err) {
+                    console.warn('No se pudo guardar nuevo invitado en la nube:', err);
+                }
+            }
+        });
+
+        copyAllLinksBtn.addEventListener('click', () => {
+            const allText = invitedNamesList.map((name, idx) => `${idx + 1}. ${name}: ${buildGuestInviteUrl(name)}`).join('\n');
+            copyTextFallback(allText);
+            copyAllLinksLabel.textContent = '¡Todos copiados!';
+            setTimeout(() => {
+                copyAllLinksLabel.textContent = 'Copiar todos';
+            }, 2200);
+        });
+
+        function renderHostDashboard() {
+            const confirmedItems = rsvpList.filter(i => i.status === 'confirmed');
+            const declinedItems = rsvpList.filter(i => i.status === 'declined');
+            const messageItems = rsvpList.filter(i => i.note && i.note.trim() !== '' && i.note !== 'Registrado por el anfitrión');
+            const totalPeopleCount = confirmedItems.reduce((sum, item) => sum + (1 + (Number(item.companions) || 0)), 0);
+
+            statConfirmed.textContent = confirmedItems.length;
+            statTotalPeople.textContent = totalPeopleCount;
+            statDeclined.textContent = declinedItems.length;
+            rsvpCountBadge.textContent = rsvpList.length;
+            messagesCountBadge.textContent = messageItems.length;
+
+            if (rsvpList.length === 0) {
+                rsvpListContainer.innerHTML = '<p class="text-center text-xs text-slate-500 py-8">Aún no hay respuestas registradas.</p>';
+            } else {
+                rsvpListContainer.innerHTML = rsvpList.map(item => {
+                    const isConfirmed = item.status === 'confirmed';
+                    const badgeClass = isConfirmed
+                        ? 'bg-emerald-500/15 text-emerald-300 border-emerald-500/40'
+                        : 'bg-rose-500/15 text-rose-300 border-rose-500/40';
+                    const badgeText = isConfirmed
+                        ? `Asiste (${1 + (Number(item.companions) || 0)} pers.)`
+                        : 'No asiste';
+
+                    return `
+                        <div class="p-3 rounded-xl bg-obsidian-950/90 border border-royal-500/30 flex items-start justify-between gap-3">
+                            <div class="min-w-0 flex-1">
+                                <p class="text-sm font-semibold text-white truncate">${escapeHtml(item.name)}</p>
+                                ${item.note ? `<p class="text-xs text-slate-400 mt-0.5 break-words">"${escapeHtml(item.note)}"</p>` : ''}
+                            </div>
+                            <div class="flex items-center gap-2 shrink-0">
+                                <span class="text-[10px] font-semibold px-2.5 py-1 rounded-full border ${badgeClass}">
+                                    ${badgeText}
+                                </span>
+                                <button type="button" data-delete-rsvp-id="${escapeHtml(item.id)}"
+                                    class="delete-rsvp-btn p-1.5 rounded-lg bg-rose-500/15 hover:bg-rose-500/30 border border-rose-500/35 text-rose-300 transition cursor-pointer"
+                                    title="Eliminar esta confirmación">
+                                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>
+                                </button>
+                            </div>
+                        </div>
+                    `;
+                }).join('');
+
+                rsvpListContainer.querySelectorAll('.delete-rsvp-btn').forEach(btn => {
+                    btn.addEventListener('click', () => {
+                        const rsvpId = btn.getAttribute('data-delete-rsvp-id');
+                        deleteRsvpRecord(rsvpId);
+                    });
+                });
+            }
+
+            if (messagesListContainer) {
+                if (messageItems.length === 0) {
+                    messagesListContainer.innerHTML = '<p class="text-center text-xs text-slate-500 py-8">Aún no te han dejado mensajes adicionales.</p>';
+                } else {
+                    messagesListContainer.innerHTML = messageItems.map(item => `
+                        <div class="p-3.5 rounded-xl bg-obsidian-950/90 border border-royal-500/35 space-y-1.5">
+                            <div class="flex items-center justify-between gap-2">
+                                <p class="text-xs font-bold text-cyanGlow">${escapeHtml(item.name)}</p>
+                                <div class="flex items-center gap-2">
+                                    <span class="text-[10px] px-2 py-0.5 rounded-full ${item.status === 'confirmed' ? 'bg-emerald-500/15 text-emerald-300' : 'bg-rose-500/15 text-rose-300'}">
+                                        ${item.status === 'confirmed' ? 'Asiste' : 'No asiste'}
+                                    </span>
+                                    <button type="button" data-delete-rsvp-id="${escapeHtml(item.id)}"
+                                        class="delete-rsvp-btn p-1 rounded-lg bg-rose-500/15 hover:bg-rose-500/30 border border-rose-500/35 text-rose-300 transition cursor-pointer"
+                                        title="Eliminar este registro">
+                                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>
+                                    </button>
+                                </div>
+                            </div>
+                            <p class="text-xs sm:text-sm text-slate-200 leading-relaxed break-words">"${escapeHtml(item.note)}"</p>
+                        </div>
+                    `).join('');
+
+                    messagesListContainer.querySelectorAll('.delete-rsvp-btn').forEach(btn => {
+                        btn.addEventListener('click', () => {
+                            const rsvpId = btn.getAttribute('data-delete-rsvp-id');
+                            deleteRsvpRecord(rsvpId);
+                        });
+                    });
+                }
+            }
+        }
+
+        async function deleteRsvpRecord(rsvpId) {
+            if (!rsvpId) return;
+            rsvpList = rsvpList.filter(item => String(item.id) !== String(rsvpId));
+            renderHostDashboard();
+            renderGuestLinksList();
+
+            if (db && currentUser) {
+                try {
+                    const docRef = doc(db, 'artifacts', appId, 'public', 'data', 'rsvps', String(rsvpId));
+                    await deleteDoc(docRef);
+                } catch (err) {
+                    console.warn('No se pudo eliminar la confirmación de la nube:', err);
+                }
+            }
+        }
+
+        function escapeHtml(str) {
+            return String(str || '')
+                .replace(/&/g, '&amp;')
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;')
+                .replace(/"/g, '&quot;');
+        }
+
+        function copyTextFallback(text) {
+            const temp = document.createElement('textarea');
+            temp.value = text;
+            document.body.appendChild(temp);
+            temp.select();
+            try {
+                document.execCommand('copy');
+            } catch (err) {
+                console.warn('Error copiando texto:', err);
+            }
+            document.body.removeChild(temp);
+        }
+
+        copyGuestlistBtn.addEventListener('click', () => {
+            const confirmedItems = rsvpList.filter(i => i.status === 'confirmed');
+            const totalPeopleCount = confirmedItems.reduce((sum, item) => sum + (1 + (Number(item.companions) || 0)), 0);
+
+            let lines = [
+                `🎉 *Lista Confirmada - 18 Años (${getHostFirstName()})*`,
+                `✅ Confirmados: ${confirmedItems.length} | 👥 Total personas: ${totalPeopleCount}`,
+                ''
+            ];
+
+            confirmedItems.forEach((item, idx) => {
+                const extra = Number(item.companions) > 0 ? ` (+${item.companions} acomp.)` : '';
+                lines.push(`${idx + 1}. ${item.name}${extra}`);
+            });
+
+            copyTextFallback(lines.join('\n'));
+            copyListLabel.textContent = '¡Lista copiada!';
+            setTimeout(() => {
+                copyListLabel.textContent = 'Copiar lista';
+            }, 2200);
+        });
+
+        // Registro manual rápido dentro del Panel de Anfitrión
+        const toggleManualRsvpBtn = document.getElementById('toggle-manual-rsvp-btn');
+        const manualRsvpForm = document.getElementById('manual-rsvp-form');
+        const manualRsvpName = document.getElementById('manual-rsvp-name');
+        const manualRsvpStatus = document.getElementById('manual-rsvp-status');
+
+        if (toggleManualRsvpBtn && manualRsvpForm) {
+            toggleManualRsvpBtn.addEventListener('click', () => {
+                manualRsvpForm.classList.toggle('hidden');
+                if (!manualRsvpForm.classList.contains('hidden')) {
+                    manualRsvpName.focus();
+                }
+            });
+
+            manualRsvpForm.addEventListener('submit', async (e) => {
+                e.preventDefault();
+                const name = manualRsvpName.value.trim();
+                const status = manualRsvpStatus.value;
+                if (!name) return;
+
+                const record = {
+                    name,
+                    status,
+                    companions: 0,
+                    totalPeople: status === 'confirmed' ? 1 : 0,
+                    note: 'Registrado por el anfitrión',
+                    createdAt: Date.now()
+                };
+
+                if (db && currentUser) {
+                    try {
+                        const rsvpsColRef = collection(db, 'artifacts', appId, 'public', 'data', 'rsvps');
+                        await addDoc(rsvpsColRef, record);
+                    } catch (err) {
+                        console.error('Error guardando registro manual:', err);
+                    }
+                } else {
+                    rsvpList.unshift({ id: String(Date.now()), ...record });
+                    renderHostDashboard();
+                    renderGuestLinksList();
+                }
+
+                manualRsvpName.value = '';
+                manualRsvpForm.classList.add('hidden');
+            });
+        }
+
+        // Modal de Personalización (Bloqueado con PIN de Anfitrión)
+        const openCustomizerBtn = document.getElementById('open-customizer-btn');
+        const closeCustomizerBtn = document.getElementById('close-customizer-btn');
+        const customizerModal = document.getElementById('customizer-modal');
+        const applyCustomBtn = document.getElementById('apply-custom-btn');
+        const copyLinkBtn = document.getElementById('copy-link-btn');
+        const copyFeedback = document.getElementById('copy-feedback');
+
+        function openCustomizerModalDirect() {
+            document.getElementById('input-guest').value = currentConfig.guest;
+            document.getElementById('input-host').value = currentConfig.host;
+            document.getElementById('input-pin').value = currentConfig.pin || '2008';
+            document.getElementById('input-date').value = currentConfig.date;
+            document.getElementById('input-time').value = currentConfig.time;
+            document.getElementById('input-venue').value = currentConfig.venue;
+            document.getElementById('input-dress').value = currentConfig.dress;
+            document.getElementById('input-map').value = currentConfig.map;
+            document.getElementById('input-phone').value = currentConfig.phone;
+            document.getElementById('input-message').value = currentConfig.message;
+            copyFeedback.classList.add('hidden');
+            customizerModal.classList.remove('hidden');
+            customizerModal.classList.add('flex');
+        }
+
+        openCustomizerBtn.addEventListener('click', () => {
+            if (isHostUnlocked) {
+                openCustomizerModalDirect();
+            } else {
+                pendingOpenCustomizerAfterPin = true;
+                hostModal.classList.remove('hidden');
+                hostModal.classList.add('flex');
+                hostPinScreen.classList.remove('hidden');
+                hostDashboard.classList.add('hidden');
+                hostDashboard.classList.remove('flex');
+                hostPinInput.value = '';
+                hostPinError.classList.add('hidden');
+                setTimeout(() => hostPinInput.focus(), 100);
+            }
+        });
+
+        closeCustomizerBtn.addEventListener('click', () => {
+            customizerModal.classList.add('hidden');
+            customizerModal.classList.remove('flex');
+        });
+
+        applyCustomBtn.addEventListener('click', async () => {
+            const newGuest = getFieldValue('input-guest', defaultConfig.guest);
+            const newHost = getFieldValue('input-host', defaultConfig.host);
+            const newPin = getFieldValue('input-pin', '2008') || '2008';
+            const newDate = getFieldValue('input-date', defaultConfig.date);
+            const newTime = getFieldValue('input-time', defaultConfig.time);
+            const newVenue = getFieldValue('input-venue', defaultConfig.venue);
+            const newDress = getFieldValue('input-dress', defaultConfig.dress);
+            const newMap = getFieldValue('input-map', defaultConfig.map);
+            const newPhone = getFieldValue('input-phone', defaultConfig.phone);
+            const newMessage = getFieldValue('input-message', defaultConfig.message);
+
+            urlGuestParam = newGuest;
+            currentConfig = {
+                ...currentConfig,
+                guest: newGuest,
+                host: newHost,
+                pin: newPin,
+                date: newDate,
+                time: newTime,
+                venue: newVenue,
+                dress: newDress,
+                map: newMap,
+                phone: newPhone,
+                message: newMessage
+            };
+
+            applyConfigToUI();
+
+            if (db && currentUser) {
+                try {
+                    const configDocRef = doc(db, 'artifacts', appId, 'public', 'data', 'settings', 'eventConfig');
+                    await setDoc(configDocRef, {
+                        host: newHost,
+                        pin: newPin,
+                        date: newDate,
+                        time: newTime,
+                        venue: newVenue,
+                        dress: newDress,
+                        map: newMap,
+                        phone: newPhone,
+                        message: newMessage
+                    }, { merge: true });
+                } catch (err) {
+                    console.warn('No se pudieron guardar los cambios en la nube:', err);
+                }
+            }
+
+            customizerModal.classList.add('hidden');
+            customizerModal.classList.remove('flex');
+        });
+
+        copyLinkBtn.addEventListener('click', () => {
+            const guestName = getFieldValue('input-guest', currentConfig.guest);
+            const link = buildGuestInviteUrl(guestName);
+            copyTextFallback(link);
+            copyFeedback.classList.remove('hidden');
+            setTimeout(() => copyFeedback.classList.add('hidden'), 2400);
+        });
+
+        applyConfigToUI();
+        updateSingleAttemptUI();
+        initCloudSync();
+    </script>
+</body>
+</html>
